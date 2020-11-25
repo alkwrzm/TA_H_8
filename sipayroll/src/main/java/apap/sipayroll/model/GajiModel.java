@@ -27,8 +27,9 @@ public class GajiModel {
     private Integer statusPersetujuan;
 
     @NotNull
-    @Column(name="tanggal_masuk", nullable = false)
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "tanggal_masuk", nullable = false)
     private Date tanggalMasuk;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

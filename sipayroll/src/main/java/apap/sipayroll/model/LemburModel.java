@@ -22,13 +22,15 @@ public class LemburModel implements Serializable {
     private Integer id;
 
     @NotNull
-    @Column(name="waktu_mulai", nullable = false)
-    @DateTimeFormat(iso=ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "waktu_mulai", nullable = false)
     private Date waktuMulai;
 
     @NotNull
-    @Column(name="waktu_selesai", nullable = false)
-    @DateTimeFormat(iso=ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "waktu_selesai", nullable = false)
     private Date waktuSelesai;
 
     @NotNull
