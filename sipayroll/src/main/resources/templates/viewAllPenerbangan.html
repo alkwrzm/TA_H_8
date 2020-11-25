@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Form Add Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<section>
+
+    <form th:action="@{/penerbangan/tambah}" th:object="${penerbangan}" method="POST">
+
+        <form th:action="@{/pilot/tambah}" th:object="${pilot}" method="POST">
+            <div class="card">
+                <a th:href="@{/penerbangan/tambah/}" class="btn btn-success w-25">Add Penerbangan</a>
+                <div class=" w-75 align-middle" style="margin: 0 auto;">
+                    <div class="card-header align-middle text-center">Daftar Penerbangan</div>
+                    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Kode Penerbangan</th>
+                <th>Waktu</th>
+                <th>Kota Asal</th>
+                <th>Kota Tujuan</th>
+                <th>Action</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="penerbangan,iterationStatus : ${listpenerbangan}" th:style="${iterationStatus.even} ? 'font-weight: bold;'">
+
+                <td th:text="${iterationStatus.count}"></td>
+
+                <td th:text="${penerbangan.kode}"></td>
+                <td th:text="${#dates.format(penerbangan.waktu,'HH:mm, dd/MM/yyyy')}"></td>
+                <td th:text="${penerbangan.kotaAsal}"></td>
+                <td th:text="${penerbangan.kotaTujuan}"></td>
+
+                <td>
+                    <input class="btn btn-outline-success" type="button" th:onclick="'window.location.href=\'' + @{/penerbangan/detail/{id}(id=${penerbangan.id})} + '\''" th:value="Detail">
+                </td>
+                <td>
+                    <input class="btn btn-danger" type="button"  th:onclick="'window.location.href=\'' + @{/penerbangan/hapus/{id}(id=${penerbangan.id})} + '\''" th:value="Delete">
+                </td>
+                <td>
+                    <input class="btn btn-success" type="button" th:onclick="'window.location.href=\'' + @{/penerbangan/ubah/{id}(id=${penerbangan.id})} + '\''" th:value="Ubah">
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+            </div>
+                </div></div>
+    </form>
+</section>
+
+
+</body>
+</html>

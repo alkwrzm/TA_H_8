@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<card class="text-center">
+    <h1 th:text="'Pilot dengan NIP ' + ${pilot.nip}+ ' berhasil ditambahkan.'"></h1>
+    <a href="/pilot">Kembali ke Daftar Pilot</a>
+</card>
+
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detail Penerbangan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<section>
+    <div class="card w-50" style="margin: 0px auto;">
+        <div class="card-header text-center bg-dark text-light">
+            Detail Penerbangan
+        </div>
+        <div class="card-body">
+            <p th:text="'Id             : ' + ${penerbangan.id}"></p>
+            <p th:text="'Kode Penerbangan : ' + ${penerbangan.kode}"></p>
+
+
+            <p th:text="'Waktu  : ' + ${#dates.format(penerbangan.waktu,'HH:mm, dd/MM/yyyy')}"></p>
+            <p th:text="'Kota Asal        : ' + ${penerbangan.kotaAsal}"></p>
+            <p th:text="'Kota Tujuan       : ' + ${penerbangan.kotaTujuan}"></p>
+        </div>
+        <div>
+            <a th:href="@{/penerbangan/ubah/} + ${penerbangan.id}" class="btn btn-success">Ubah</a>
+            <a th:href="@{/penerbangan/hapus/} + ${penerbangan.id}"  class="btn btn-danger">Hapus</a>
+        </div>
+    </div>
+
+</section>
+<section>
+    <form th:action="@{/penerbangan/} + ${id} + @{/pilot/tambah}" th:object="${pilot}" method="POST">
+
+        <div class="card w-50" style="margin: 0px auto;">
+            <div class="card-header text-center bg-dark text-light">
+                Pilih Pilot</div>
+            <div class="card-body">
+        <select class="form-control w-25" name="pilotModel">
+            <option th:each="pilot:${listPilot}" th:text="${pilot.nama}" th:value="${pilot.id}">
+
+            </option>
+        </select>
+        <button type="submit" class="btn btn-primary">Tambah</button>
+            </div></form>
+</section>
+<section>
+    <div class="card w-75 "style="margin: 0px auto;">
+        <div class="card-header text-center bg-dark text-light">
+            Daftar Pilot
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>NIP</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Tanggal Penugasan</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ppm,iterationStatus : ${ppml}" th:style="${iterationStatus.even} ? 'font-weight: bold;'">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${ppm.pilotModel.nama}"></td>
+                    <td th:text="${ppm.pilotModel.nip}"></td>
+                    <td th:text="${ppm.pilotModel.tanggalLahir}"></td>
+                    <td th:text="${ppm.pilotModel.jenisKelamin}"></td>
+                    <td th:text="${ppm.tanggalPenugasan}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

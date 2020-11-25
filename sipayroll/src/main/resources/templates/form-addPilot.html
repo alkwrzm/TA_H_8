@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Form Add Obat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<section>
+    <div class="card w-75" style="margin: 0px auto;">
+        <div class="card-header text-center bg-dark text-light">
+            Tambah Pilot</div>
+        <div class="card-body">
+        <form th:action="@{/pilot/tambah}" th:object="${pilot}" method="POST">
+            Nama: <br>
+            <input type="text" name="nama" class="form-control"/>
+            <br><br>
+            NIK:<br>
+            <input type="text" name="nik" class="form-control"/>
+            <br><br>
+            Tempat Lahir:<br>
+            <input type="text" name="tempatLahir" class="form-control"/>
+            <br><br>
+            Tanggal Lahir:<br>
+            <input type="date" name="tanggalLahir" class="form-control"/>
+            <br><br>
+            Jenis Kelamin:<br>
+            <select name="jenisKelamin"class="form-control">
+                <option value="0" selected="false" disabled="disabled"></option>
+                <option value="1">Laki</option>
+                <option value="2">Perempuan</option>
+            </select>
+            <br><br>
+            Sekolah:<br>
+            <select name="akademiModel" class="form-control" >
+                <option th:each="akademi : ${listakademi}"
+                        th:value="${akademi.id}"
+                        th:text="${akademi.nama}"
+                ></option>
+
+            </select>
+            <br><br>
+            Maskapai:<br>
+            <select name="maskapaiModel" class="form-control" >
+                <option th:each="maskapai : ${listmaskapai}"
+                        th:value="${maskapai.id}"
+                        th:text="${maskapai.nama}"
+                ></option>
+            </select>
+            <br><br>
+            <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+        </form></div>
+    </div>
+</section>
+
+</body>
+</html>

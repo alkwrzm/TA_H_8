@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detail Pilot</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<section>
+    <div class="card w-50 " style="margin: 0px auto;">
+        <div class="card-header text-center bg-dark text-light">
+            Detail Pilot
+        </div>
+        <div class="card-body">
+            <p th:text="'Id             : ' + ${pilot.id}"></p>
+            <p th:text="'Nama           : ' + ${pilot.nama}"></p>
+            <p th:text="'NIK            : ' + ${pilot.nik}"></p>
+
+            <p th:text=" ${pilot.jenisKelamin == 1}?'Jenis Kelamin  : Laki':'Jenis Kelamin  : Perempuan'"></p>
+            <p th:text="'NIP            : ' + ${pilot.nip}"></p>
+            <p th:text="'Tempat Lahir   : ' + ${pilot.tempatLahir}"></p>
+
+            <p th:text="'Tanggal Lahir  : ' + ${#dates.format(pilot.tanggalLahir,'dd/MM/yyyy')}"></p>
+            <p th:text="'Sekolah        : ' + ${pilot.akademiModel.getNama()}"></p>
+            <p th:text="'Maskapai       : ' + ${pilot.maskapaiModel.getNama()}"></p>
+        </div>
+        <div>
+            <a th:href="@{/pilot/ubah/} + ${pilot.nip}" class="btn btn-success">Ubah</a>
+            <a th:href="@{/pilot/delete/} + ${pilot.nip}" class="btn btn-danger">Hapus</a>
+        </div>
+    </div>
+
+</section>
+<section>
+    <div class="card w-75" style="margin: 0px auto;">
+        <div class="card-header text-center bg-dark text-light">
+            Jadwal Bertugas
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Penerbangan</th>
+                    <th>Waktu</th>
+                    <th>Kota Asal</th>
+                    <th>Kota Tujuan</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ppm,iterationStatus : ${ppml}" th:style="${iterationStatus.even} ? 'font-weight: bold;'">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${ppm.penerbanganModel.kode}"></td>
+                    <td th:text="${#dates.format(ppm.penerbanganModel.waktu, 'HH:mm, dd/MM/yyyy')}"></td>
+                    <td th:text="${ppm.penerbanganModel.kotaAsal}"></td>
+                    <td th:text="${ppm.penerbanganModel.kotaTujuan}"></td>
+                    <td>
+                        <a th:href="@{/penerbangan/detail/} + ${ppm.penerbanganModel.id}" class="btn btn-success">Ubah</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>
