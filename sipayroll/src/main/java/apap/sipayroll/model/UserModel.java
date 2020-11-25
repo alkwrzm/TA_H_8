@@ -9,13 +9,16 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
+
+import apap.sipayroll.model.GajiModel;
 
 @Entity
 @Table(name = "user")
 public class UserModel implements Serializable {
 
-
     @Id
+    @Size(max = 200)
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "uuid")
@@ -32,17 +35,14 @@ public class UserModel implements Serializable {
     private String password;
 
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_gaji", referencedColumnName = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private GajiModel gajiModel;
-
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_role", referencedColumnName = "id_role", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private RoleModel roleModel;
+
+    @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<GajiModel> listGajiModel;
 
     public String getUuid() {
         return uuid;
@@ -68,19 +68,19 @@ public class UserModel implements Serializable {
         this.password = password;
     }
 
-    public GajiModel getGajiModel() {
-        return gajiModel;
-    }
-
-    public void setGajiModel(GajiModel gajiModel) {
-        this.gajiModel = gajiModel;
-    }
-
     public RoleModel getRoleModel() {
         return roleModel;
     }
 
     public void setRoleModel(RoleModel roleModel) {
         this.roleModel = roleModel;
+    }
+
+    public List<GajiModel> getListGajiModel() {
+        return listGajiModel;
+    }
+
+    public void setListGajiModel(List<GajiModel> listGajiModel) {
+        this.listGajiModel = listGajiModel;
     }
 }
