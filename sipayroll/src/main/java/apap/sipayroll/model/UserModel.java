@@ -35,12 +35,12 @@ public class UserModel implements Serializable {
 
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_role", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_role", referencedColumnName = "id_role", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private RoleModel roleModel;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<GajiModel> listGajiModel;
 
     public String getUuid() {

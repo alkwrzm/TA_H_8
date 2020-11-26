@@ -51,10 +51,10 @@ public class GajiModel {
     @JsonIgnore
     private UserModel userModel;
 
-    @OneToMany(mappedBy = "gaji", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LemburModel> listLembur;
 
-    @OneToMany(mappedBy = "gaji", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BonusModel> listBonus;
 
     public Integer getId() {

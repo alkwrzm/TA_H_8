@@ -22,7 +22,7 @@ public class RoleModel {
     @Column(name = "name_role", nullable = false)
     private String namaRole;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roleModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<UserModel> listUser;

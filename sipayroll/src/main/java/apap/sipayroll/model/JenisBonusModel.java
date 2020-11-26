@@ -20,7 +20,7 @@ public class JenisBonusModel {
     @Column(name = "gaji_pokok", nullable = false)
     private String nama;
 
-    @OneToMany(mappedBy = "jenisBonus", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jenisBonusModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<BonusModel> listBonus;
 
