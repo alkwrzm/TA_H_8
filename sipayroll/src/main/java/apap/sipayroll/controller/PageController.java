@@ -1,6 +1,8 @@
 package apap.sipayroll.controller;
 
 import apap.sipayroll.model.UserModel;
+import apap.sipayroll.service.RoleService;
+import apap.sipayroll.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,10 +25,6 @@ public class PageController {
         model.addAttribute("listRole", roleService.findAll());
         model.addAttribute("role",user.getRoleModel().getNamaRole());
         return "home";
-    }
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
     }
 
 }
