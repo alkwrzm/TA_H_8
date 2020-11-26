@@ -19,7 +19,7 @@
 <nav
         th:fragment="navbar"
         class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand font-weight-bold " href="#">SIPILOT</a>
+    <a class="navbar-brand font-weight-bold " href="#">SIPAYROLL</a>
     <button
             class="navbar-toggler"
             type="button"
@@ -33,27 +33,15 @@
 
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link active text-secondary" th:href="@{/pilot}">
-                Pilot<span class="sr-only">(current)</span>
-            </a>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link active text-secondary" th:href="@{/penerbangan}">
-                Penerbangan<span class="sr-only">(current)</span>
-            </a>
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link active text-secondary" th:href="@{/search}">
-                Cari<span class="sr-only">(current)</span>
+            <a class="nav-item nav-link active text-secondary" th:href="@{/}">
+                Payroll<span class="sr-only">(current)</span>
             </a>
         </ul>
     </div>
 </nav>
 </body>
 
-<footer
-        th:fragment="foot"
->
+<footer th:fragment="foot">
     <div id="time"></div>
     <script>
         var d = new Date();
