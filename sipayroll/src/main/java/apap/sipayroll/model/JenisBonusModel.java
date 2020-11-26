@@ -1,5 +1,8 @@
 package apap.sipayroll.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,7 +20,8 @@ public class JenisBonusModel {
     @Column(name = "gaji_pokok", nullable = false)
     private String nama;
 
-    @OneToMany(mappedBy = "jenisBonusModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jenisBonus", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<BonusModel> listBonus;
 
     public Integer getId() {

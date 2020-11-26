@@ -1,6 +1,9 @@
 package apap.sipayroll.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -19,7 +22,9 @@ public class RoleModel {
     @Column(name = "name_role", nullable = false)
     private String namaRole;
 
-    @OneToMany(mappedBy = "roleModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<UserModel> listUser;
 
     public Integer getId() {

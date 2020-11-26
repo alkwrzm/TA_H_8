@@ -16,6 +16,7 @@ import java.util.List;
 public class GajiModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
     @NotNull
@@ -50,10 +51,10 @@ public class GajiModel {
     @JsonIgnore
     private UserModel userModel;
 
-    @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gaji", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LemburModel> listLembur;
 
-    @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gaji", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BonusModel> listBonus;
 
     public Integer getId() {

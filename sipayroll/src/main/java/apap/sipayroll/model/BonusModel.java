@@ -29,4 +29,36 @@ public class BonusModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private JenisBonusModel jenisBonusModel;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getJumlahBonus() {
+        return jumlahBonus;
+    }
+
+    public void setJumlahBonus(Integer jumlahBonus) {
+        this.jumlahBonus = jumlahBonus;
+    }
+
+    public GajiModel getGajiModel() {
+        return gajiModel;
+    }
+
+    public void setGajiModel(GajiModel gajiModel) {
+        this.gajiModel = gajiModel;
+    }
+
+    public JenisBonusModel getJenisBonusModel() {
+        return jenisBonusModel;
+    }
+
+    public void setJenisBonusModel(JenisBonusModel jenisBonusModel) {
+        this.jenisBonusModel = jenisBonusModel;
+    }
 }
