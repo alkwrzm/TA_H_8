@@ -21,11 +21,12 @@ public class PageController {
 
     @RequestMapping("/")
     public String home(Model model){
-        UserModel user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        model.addAttribute("listRole", roleService.findAll());
-        model.addAttribute("role",user.getRoleModel().getNamaRole());
         return "home";
     }
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
 }
 
