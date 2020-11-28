@@ -17,7 +17,7 @@ public class GajiModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @Column(name = "gaji_pokok", nullable = false)
@@ -57,11 +57,11 @@ public class GajiModel {
     @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BonusModel> listBonus;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

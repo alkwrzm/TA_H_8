@@ -13,7 +13,7 @@ import java.util.List;
 public class JenisBonusModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @Size(max = 200)
@@ -24,11 +24,11 @@ public class JenisBonusModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<BonusModel> listBonus;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

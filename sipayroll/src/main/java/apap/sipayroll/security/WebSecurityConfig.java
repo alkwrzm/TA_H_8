@@ -39,8 +39,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .passwordEncoder(encoder())
                 .withUser("user1").password(encoder().encode("user1"))
-                .roles("KARYAWAN");
+                .roles("Karyawan");
     }
+    /*
+    @Autowired
+    private UserDetailsService userDetailsService;
 
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws  Exception{
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    }
+*/
 
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class BonusModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @Column(name = "jumlah_bonus", nullable = false)
@@ -30,11 +30,11 @@ public class BonusModel {
     @JsonIgnore
     private JenisBonusModel jenisBonusModel;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

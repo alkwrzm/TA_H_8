@@ -38,7 +38,7 @@ public class GajiController {
             @ModelAttribute GajiModel gajiModel,
             Model model){
         gajiService.addGaji(gajiModel);
-        Integer gaji = gajiModel.getId();
+        Long gaji = gajiModel.getId();
         model.addAttribute("gaji", gaji);
         return "add-gaji";
     }
