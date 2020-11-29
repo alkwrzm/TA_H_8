@@ -10,12 +10,12 @@
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="row">
         <form class="col-md-12" th:action="@{/gaji/add}"th:object="${gaji}" method = "POST">
-<!--            <input type="hidden" th:field="*{id}">-->
+            <input type="hidden" th:field="*{id}">
             <div class="row">
                 <div class="col-md-2"></div>
                 <label class="col-md-2">UUID User</label>
                 <div class="col-md-6">
-                    <select class="form-control" th:field="*{id}">
+                    <select class="form-control" th:field="*{userModel.uuid}">
                         <option value="" hidden selected>pilih user</option>
                         <option th:each="user : ${listUser}" th:text="${user.uuid}" th:value="${user.uuid}" ></option>
                     </select>
@@ -31,21 +31,15 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <input type="hidden" th:field="*{statusPersetujuan}" value="0">
             <br>
             <div class="row">
                 <div class="col-md-2"></div>
                 <label class="col-md-2">Tanggal Masuk</label>
                 <div class="col-md-6">
-                    <input type="date" class="form-control" name="tanggalMasuk" th:field="*{tanggalMasuk}">
+                    <input type="datetime-local" class="form-control" name="tanggalMasuk" th:field="*{tanggalMasuk}">
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <br>
-            <input type="hidden" th:field="*{userModel}" value="user.uuid">
-            <input type="hidden" th:field="*{userPengajuModel}" value="${#httpServletRequest.remoteUser}"/>
-            <input type="hidden" th:field="*{userPenyetujuModel}" value="">
-            <br>
             <div class="row"><br><br></div>
             <div class="row">
                 <div class="col-md-4"></div>
