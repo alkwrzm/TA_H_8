@@ -6,11 +6,13 @@ import apap.sipayroll.service.GajiService;
 import apap.sipayroll.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,6 +39,10 @@ public class GajiController {
     public String addGajiSubmit(
             @ModelAttribute GajiModel gajiModel,
             Model model){
+        UserModel userPengaju = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        gajiModel.setUserPengajuModel(userPengaju);
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+        gajiModel.setStatusPersetujuan(0);
         gajiService.addGaji(gajiModel);
         Long gaji = gajiModel.getId();
         model.addAttribute("gaji", gaji);

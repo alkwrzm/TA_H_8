@@ -33,8 +33,10 @@ public class GajiModel {
     @Column(name = "tanggal_masuk", nullable = false)
     private Date tanggalMasuk;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "uuid_penyetuju", referencedColumnName = "uuid", nullable = false)
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "uuid_penyetuju", referencedColumnName = "uuid", nullable = true)
+
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private UserModel userPenyetujuModel;
@@ -50,6 +52,7 @@ public class GajiModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private GajiModel gajiModel;
+
 
     @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LemburModel> listLembur;
