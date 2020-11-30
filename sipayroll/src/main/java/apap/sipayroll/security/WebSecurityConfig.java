@@ -42,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .roles("Karyawan");
     }
-    /*
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -50,6 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws  Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
-*/
+
 
 }
