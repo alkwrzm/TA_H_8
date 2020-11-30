@@ -39,9 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .passwordEncoder(encoder())
                 .withUser("user1").password(encoder().encode("user1"))
+
                 .roles("Karyawan");
     }
-    /*
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -49,6 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configAuthentication(AuthenticationManagerBuilder auth) throws  Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
-*/
+
 
 }
