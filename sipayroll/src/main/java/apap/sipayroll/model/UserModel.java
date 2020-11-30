@@ -40,8 +40,7 @@ public class UserModel implements Serializable {
     @JsonIgnore
     private RoleModel roleModel;
 
-    @OneToOne(mappedBy = "userModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_gaji", referencedColumnName = "id")
+    @OneToOne(mappedBy = "userModel", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private GajiModel gajiModel;

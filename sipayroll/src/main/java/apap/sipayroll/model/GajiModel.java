@@ -34,9 +34,8 @@ public class GajiModel {
     private Date tanggalMasuk;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "uuid_penyetuju", referencedColumnName = "uuid", nullable = true)
-
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private UserModel userPenyetujuModel;
@@ -47,11 +46,11 @@ public class GajiModel {
     @JsonIgnore
     private UserModel userPengajuModel;
 
-    @OneToOne(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user", referencedColumnName = "uuid")
+    @OneToOne(fetch = FetchType.EAGER,  optional = false)
+    @JoinColumn(name = "id_user", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private GajiModel gajiModel;
+    private UserModel userModel;
 
 
     @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -108,12 +107,12 @@ public class GajiModel {
         this.userPengajuModel = userPengajuModel;
     }
 
-    public GajiModel getGajiModel() {
-        return gajiModel;
+    public UserModel getUserModel() {
+        return userModel;
     }
 
-    public void setGajiModel(GajiModel gajiModel) {
-        this.gajiModel = gajiModel;
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     public List<LemburModel> getListLembur() {
