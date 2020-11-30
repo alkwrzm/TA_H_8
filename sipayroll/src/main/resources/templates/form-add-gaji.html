@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Add Gaji</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="row">
+        <form class="col-md-12" th:action="@{/gaji/add}"th:object="${gaji}" method = "POST">
+            <input type="hidden" th:field="*{id}">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <label class="col-md-2">UUID User</label>
+                <div class="col-md-6">
+                    <select class="form-control" th:field="*{userModel.uuid}">
+                        <option value="" hidden selected>pilih user</option>
+                        <option th:each="user : ${listUser}" th:text="${user.uuid}" th:value="${user.uuid}" ></option>
+                    </select>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <label class="col-md-2">Gaji Pokok</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="gajiPokok" th:field="*{gajiPokok}" placeholder = "masukkan gaji pokok">
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <label class="col-md-2">Tanggal Masuk</label>
+                <div class="col-md-6">
+                    <input type="datetime-local" class="form-control" name="tanggalMasuk" th:field="*{tanggalMasuk}">
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row"><br><br></div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 d-flex justify-content-around">
+                    <a th:href="@{/}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    <button class="btn btn-primary btn-lg" type="submit">Simpan</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -14,24 +14,24 @@ import java.util.List;
 public class RoleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_role", nullable = false, unique = true)
-    private Integer id;
+    @Column(name = "id_role")
+    private Long id;
 
     @NotNull
     @Size(max = 50)
     @Column(name = "name_role", nullable = false)
     private String namaRole;
 
-    @OneToMany(mappedBy = "roleModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roleModel", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<UserModel> listUser;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

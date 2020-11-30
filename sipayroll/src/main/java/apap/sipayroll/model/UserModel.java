@@ -40,8 +40,10 @@ public class UserModel implements Serializable {
     @JsonIgnore
     private RoleModel roleModel;
 
-    @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<GajiModel> listGajiModel;
+    @OneToOne(mappedBy = "userModel", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private GajiModel gajiModel;
 
     public String getUuid() {
         return uuid;
@@ -75,11 +77,11 @@ public class UserModel implements Serializable {
         this.roleModel = roleModel;
     }
 
-    public List<GajiModel> getListGajiModel() {
-        return listGajiModel;
+    public GajiModel getGajiModel() {
+        return gajiModel;
     }
 
-    public void setListGajiModel(List<GajiModel> listGajiModel) {
-        this.listGajiModel = listGajiModel;
+    public void setGajiModel(GajiModel gajiModel) {
+        this.gajiModel = gajiModel;
     }
 }
