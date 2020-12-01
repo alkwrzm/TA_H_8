@@ -1,6 +1,7 @@
 package apap.sipayroll.controller;
 
 import apap.sipayroll.model.GajiModel;
+import apap.sipayroll.model.LemburModel;
 import apap.sipayroll.model.UserModel;
 import apap.sipayroll.service.GajiService;
 import apap.sipayroll.service.UserService;
@@ -22,6 +23,7 @@ public class GajiController {
 
     @Autowired
     UserService userService;
+
 
     @GetMapping("/gaji/add")
     public String addGajiFormPage(Model model){
@@ -51,9 +53,13 @@ public class GajiController {
             @PathVariable Long id,
             Model model){
         GajiModel gaji = gajiService.getGajiById(id);
-        System.out.println(gaji.getGajiPokok());
-        model.addAttribute("gaji", gaji);
-        return "form-update-gaji";
+        UserModel userPengaju = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(userPengaju.equals(gaji.getUserModel())){
+            return "error-update-gaji";
+        }else{
+            model.addAttribute("gaji", gaji);
+            return "form-update-gaji";
+        }
     }
 
     @PostMapping("/gaji/update")
@@ -67,5 +73,15 @@ public class GajiController {
         Long idGaji = gaji.getId();
         model.addAttribute("gaji", idGaji);
         return "update-gaji";
+    }
+    @GetMapping("gaji/delete/{id}")
+    public String deleteGaji(
+            @PathVariable Long id,
+            Model model){
+        GajiModel gaji = gajiService.getGajiById(id);
+        Long idGaji = gaji.getId();
+        model.addAttribute("gaji", idGaji);
+        gajiService.deleteGaji(gaji);
+        return "delete-gaji";
     }
 }
