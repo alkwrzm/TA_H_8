@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +44,28 @@ public class GajiController {
         Long gaji = gajiModel.getId();
         model.addAttribute("gaji", gaji);
         return "add-gaji";
+    }
+
+    @GetMapping("/gaji/update/{id}")
+    public String formUpdateGaji(
+            @PathVariable Long id,
+            Model model){
+        GajiModel gaji = gajiService.getGajiById(id);
+        System.out.println(gaji.getGajiPokok());
+        model.addAttribute("gaji", gaji);
+        return "form-update-gaji";
+    }
+
+    @PostMapping("/gaji/update")
+    public String updateGajiSubmit(
+            @ModelAttribute GajiModel gaji,
+            Model model){
+        UserModel userPengaju = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        gaji.setUserPengajuModel(userPengaju);
+        gaji.setStatusPersetujuan(0);
+        gajiService.addGaji(gaji);
+        Long idGaji = gaji.getId();
+        model.addAttribute("gaji", idGaji);
+        return "update-gaji";
     }
 }
