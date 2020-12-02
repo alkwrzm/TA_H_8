@@ -45,6 +45,12 @@ public class UserModel implements Serializable {
     @JsonIgnore
     private GajiModel gajiModel;
 
+    @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<GajiModel> listGajiModel;
+
+
     public String getUuid() {
         return uuid;
     }
@@ -83,5 +89,13 @@ public class UserModel implements Serializable {
 
     public void setGajiModel(GajiModel gajiModel) {
         this.gajiModel = gajiModel;
+    }
+
+    public List<GajiModel> getListGajiModel() {
+        return listGajiModel;
+    }
+
+    public void setListGajiModel(List<GajiModel> listGajiModel) {
+        this.listGajiModel = listGajiModel;
     }
 }
