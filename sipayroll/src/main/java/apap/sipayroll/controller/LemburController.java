@@ -65,4 +65,40 @@ public class LemburController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userService.findByUsername(username);
     }
+
+    //if Kepala Departemen HR dan Staff Payroll, status persetujuan
+    //if karyawan, waktu mulai dan waktu selesai
+    @GetMapping({"/change/{idLembur}", "/change"})
+    private String changeLemburForm(
+            @PathVariable(required = false) Long idLembur,
+            Model model
+    ) {
+        LemburModel lembur = lemburService.findById(idLembur).get();
+        UserModel user = userFinder();
+        String role = user.getRoleModel().getNamaRole();
+        model.addAttribute("lembur", lembur);
+        if((role.equals("Kepala Departemen HR") || (role.equals("Staff Payroll")))){
+            model.addAttribute("waktuMulai", lembur.getWaktuMulai());
+            model.addAttribute("waktuSelesai", lembur.getWaktuSelesai());
+            return "form-change-lembur-HRPR";
+        }else{
+            if(lembur.getStatusPersetujuan()==0){
+                model.addAttribute("status", "Menunggu Persetujuan");
+            }else if(lembur.getStatusPersetujuan()==1){
+                model.addAttribute("status", "Ditolak");
+            }else{
+                model.addAttribute("status", "Disetujui");
+            }
+            return "form-change-lembur";
+        }
+
+    }
+    @PostMapping("/change")
+    private String changeLemburSubmit(@ModelAttribute LemburModel lembur, Model model){
+        lemburService.changeLembur(lembur);
+        model.addAttribute("msg", "Pengubahan lembur berhasil!");
+        return "lembur-notif";
+    }
+
+
 }
