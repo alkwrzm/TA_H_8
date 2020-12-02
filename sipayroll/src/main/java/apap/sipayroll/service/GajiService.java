@@ -5,8 +5,6 @@ import java.util.List;
 
 public interface GajiService {
     GajiModel getGajiById(Long id);
-  
-    GajiModel getGajiById(Long id);
 
     void addGaji(GajiModel gaji);
 
