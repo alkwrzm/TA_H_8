@@ -83,5 +83,6 @@ public class GajiController {
         model.addAttribute("gaji", idGaji);
         gajiService.deleteGaji(gaji);
         return "delete-gaji";
+        // Jangan lupa delete bonus dan lembur
     }
 }
