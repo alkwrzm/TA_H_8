@@ -13,7 +13,12 @@ import java.util.List;
 public class GajiServiceImpl implements GajiService{
     @Autowired
     GajiDb gajiDb;
-
+  
+    @Override
+    public GajiModel getGajiById(Long id){
+        return gajiDb.findGajiModelById(id);
+    }
+  
     @Override
     public GajiModel getGajiById(Long id){
         return gajiDb.findGajiModelById(id);

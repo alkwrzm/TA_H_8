@@ -34,13 +34,13 @@ public class GajiModel {
     private Date tanggalMasuk;
 
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uuid_penyetuju", referencedColumnName = "uuid", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private UserModel userPenyetujuModel;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "uuid_pengaju", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
