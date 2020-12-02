@@ -12,4 +12,6 @@ public interface GajiService {
     List<GajiModel> getListGaji();
 
     GajiModel updateGaji(GajiModel gajiModel);
+
+    GajiModel getGajiById(Long id);
 }

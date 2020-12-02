@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Add Gaji</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="row">
+    <form class="col-md-12" th:action="@{/gaji/update}"th:object="${gaji}" method = "POST">
+        <input type="hidden" th:field="${gaji.id}">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">UUID User</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="id_user" th:field="${gaji.userModel.uuid}" readonly>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">Gaji Pokok</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="gajiPokok" th:field="${gaji.gajiPokok}">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">Tanggal Masuk</label>
+            <div class="col-md-6">
+                <input type="datetime-local" class="form-control" name="tanggalMasuk" th:field="${gaji.tanggalMasuk}" readonly>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row"><br><br></div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 d-flex justify-content-around">
+                <a th:href="@{/}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                <button class="btn btn-primary btn-lg" type="submit">Simpan</button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
