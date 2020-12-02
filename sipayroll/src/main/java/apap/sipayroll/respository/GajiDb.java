@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GajiDb extends JpaRepository<GajiModel, Long> {
-
+    GajiModel findGajiModelById(Long id);
 }

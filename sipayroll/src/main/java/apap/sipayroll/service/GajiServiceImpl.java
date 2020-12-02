@@ -15,6 +15,11 @@ public class GajiServiceImpl implements GajiService{
     GajiDb gajiDb;
 
     @Override
+    public GajiModel getGajiById(Long id){
+        return gajiDb.findGajiModelById(id);
+    }
+
+    @Override
     public void addGaji(GajiModel gaji){
         gajiDb.save(gaji);
     }
