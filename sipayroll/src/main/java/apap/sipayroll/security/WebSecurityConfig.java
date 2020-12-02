@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .roles("Karyawan");
     }
+
     @Autowired
     private UserDetailsService userDetailsService;
 

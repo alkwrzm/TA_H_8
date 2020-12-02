@@ -35,4 +35,5 @@ public class GajiServiceImpl implements GajiService{
 
         return gajiModel;
     }
+
 }
