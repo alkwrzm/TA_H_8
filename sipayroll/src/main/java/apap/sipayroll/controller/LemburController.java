@@ -100,5 +100,34 @@ public class LemburController {
         return "lembur-notif";
     }
 
+    @GetMapping("/delete/{idLembur}")
+    private String deleteLembur(
+            @PathVariable(required = false) Long idLembur,
+            Model model
+    ) {
+        LemburModel lembur = lemburService.findById(idLembur).get();
+        model.addAttribute("lembur", lembur);
+        UserModel user = userFinder();
+        String role = user.getRoleModel().getNamaRole();
+        //Kalau karyawan, hanya bisa erase punya sendiri
+        if(role.equals("Karyawan")){
+            List<LemburModel> lemburs = user.getGajiModel().getListLembur();
+            List<Long> lemburIds = new ArrayList<>();
+            for(LemburModel each : lemburs){
+                lemburIds.add(each.getId());
+            }
+            if (lemburIds.contains(idLembur)){
+                model.addAttribute("msg", "Lembur berhasil dihapus!");
+                lemburService.deleteById(idLembur);
+            } else{
+                model.addAttribute("msg", "Lembur tersebut tidak dapat anda hapus!");
+            }
+        } else{
+            model.addAttribute("msg", "Lembur berhasil dihapus!");
+            lemburService.deleteById(idLembur);
+        }
+        return "lembur-notif";
+    }
+
 
 }
