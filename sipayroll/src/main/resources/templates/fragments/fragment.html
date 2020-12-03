@@ -18,39 +18,63 @@
 <body>
 <nav
         th:fragment="navbar"
-        class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand font-weight-bold " href="#">SIPAYROLL</a>
-    <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        class="navbar navbar-nav navbar-expand-lg  navbar-collapse navbar-dark bg-dark">
 
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-item nav-link active text-secondary" th:href="@{/}">
-                Payroll<span class="sr-only">(current)</span>
-            </a>
-            <a class="nav-item nav-link active text-secondary" th:href="@{/logout}">
-                Logout<span class="sr-only"></span>
-            </a>
+    <div class="container-fluid ">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">SIPAYROLL</a>
+        </div>
+        <div class="navbar-collapse">
+        <ul class="nav navbar-nav mr-auto text-light bg-dark ">
+            <li class="dropdown bg-dark ">
+                <a class="dropdown-toggle text-light"  data-toggle="dropdown" href="#">User
+                    <span class="sr-only text-light"></span></a>
+                <ul class="dropdown-menu bg-dark">
+                    <li><a th:href="@{/user/addUser}" class="bg-dark text-light">Add User<span class="sr-only"></span></a></li>
+                    <li><a th:href="@{/user/changePassword} "class="bg-dark text-light">Change Password<span class="sr-only"></span></a></li>
+                    <li><a th:href="@{/logout}" class="bg-dark text-light">LogOut<span class="sr-only"></span></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle text-light" data-toggle="dropdown" href="#">Gaji
+                    <span class="sr-only text-light"></span></a>
+                <ul class="dropdown-menu bg-dark">
+                    <li><a th:href="@{/gaji/}"class="bg-dark text-light">ViewAll Gaji<span class="sr-only"></span></a></li>
+                    <li><a th:href="@{/gaji/add}" class="bg-dark text-light">Add Gaji<span class="sr-only"></span></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle text-light" data-toggle="dropdown" href="#">Lembur
+                    <span class="sr-only text-light"></span></a>
+                <ul class="dropdown-menu bg-dark">
+                    <li><a th:href="@{/lembur/}" class="bg-dark text-light">ViewAll Lembur<span class="sr-only"></span></a></li>
+                    <li><a th:href="@{/lembur/add}" class="bg-dark text-light">Add Lembur<span class="sr-only"></span></a></li>
+                </ul>
+            </li>
         </ul>
+        </div>
     </div>
+
 </nav>
 </body>
 
 <footer th:fragment="foot">
     <div id="time"></div>
     <script>
-        var d = new Date();
-
-        document.getElementById("time").innerHTML = d.toLocaleString();
-
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('time').innerHTML =
+                h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i};
+            return i;
     </script>
 </footer>
 </html>
