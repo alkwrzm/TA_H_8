@@ -3,9 +3,11 @@ package apap.sipayroll.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Table(name = "bonus")
@@ -23,6 +25,11 @@ public class BonusModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private GajiModel gajiModel;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "tanggal_diberikan", nullable = false)
+    private Date tanggalDiberikan;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_jenis_bonus", referencedColumnName = "id", nullable = false)
@@ -60,5 +67,13 @@ public class BonusModel {
 
     public void setJenisBonusModel(JenisBonusModel jenisBonusModel) {
         this.jenisBonusModel = jenisBonusModel;
+    }
+
+    public Date getTanggalDiberikan() {
+        return tanggalDiberikan;
+    }
+
+    public void setTanggalDiberikan(Date tanggalDiberikan) {
+        this.tanggalDiberikan = tanggalDiberikan;
     }
 }
