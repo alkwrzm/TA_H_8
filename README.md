@@ -9,7 +9,15 @@ Anggota Kelompok:
 Kontrak Tahap 1 Tugas Akhir:
 |NPM|Nama|Fitur Yang Diselesaikan|
 |---|---|---|
-|1806185361|Jacob Marulituia Ido Situmorang|1|
+|1806185361|Jacob Marulituia Ido Situmorang|4,5|
 |1806185405|Mohammed Al Kwarizmi|2,3|
-|1806146991|Harnindyto Wicaksana|4|
-|1806185462|Amilah Zahiroh|5|
+|1806146991|Harnindyto Wicaksana|1,11|
+|1806185462|Amilah Zahiroh|10,12,13|
+
+Kontrak Tahap 2 Tugas Akhir:
+|NPM|Nama|Fitur Yang Diselesaikan|
+|---|---|---|
+|1806185361|Jacob Marulituia Ido Situmorang|6|
+|1806185405|Mohammed Al Kwarizmi|7|
+|1806146991|Harnindyto Wicaksana|8|
+|1806185462|Amilah Zahiroh|9|

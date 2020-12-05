@@ -26,6 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/gaji/add").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
                 .antMatchers("/gaji/update/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
                 .antMatchers("/gaji/delete/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
+                .antMatchers("/lembur/add/**").hasAnyAuthority("Karyawan")
+                .antMatchers("/lembur/change/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
+                .antMatchers("/lembur/delete/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
+                .antMatchers("/lembur/view/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -45,7 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .roles("Karyawan");
     }
-
     @Autowired
     private UserDetailsService userDetailsService;
 
