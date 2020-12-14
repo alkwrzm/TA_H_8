@@ -2,7 +2,9 @@ package apap.sipayroll.controller;
 
 import apap.sipayroll.model.GajiModel;
 import apap.sipayroll.model.LemburModel;
+import apap.sipayroll.model.RoleModel;
 import apap.sipayroll.model.UserModel;
+import apap.sipayroll.service.LemburService;
 import apap.sipayroll.service.GajiService;
 import apap.sipayroll.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,9 @@ public class GajiController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LemburService lemburService;
 
 
     @GetMapping("/gaji/add")
@@ -80,9 +86,46 @@ public class GajiController {
             Model model){
         GajiModel gaji = gajiService.getGajiById(id);
         Long idGaji = gaji.getId();
+        List<LemburModel> lembur = lemburService.findByIdGaji(id);
+        if(lembur.size()>0){
+            for(LemburModel l:lembur){
+                Long idLembur = l.getId();
+                lemburService.deleteById(idLembur);
+            }
+        }
         model.addAttribute("gaji", idGaji);
         gajiService.deleteGaji(gaji);
         return "delete-gaji";
         // Jangan lupa delete bonus dan lembur
     }
+    @GetMapping("gaji/viewall")
+    public String viewallgaji(
+            Model model){
+        List<GajiModel> listCompareGaji = gajiService.getListGaji();
+        List<GajiModel> listGaji = gajiService.getListGaji();
+        List<Long> jumlahLembur = new ArrayList<>();
+        UserModel userLogin = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel userRoleLogin = userLogin.getRoleModel();
+        if(!userRoleLogin.getNamaRole().equals("Kepala Departemen HR") && !userRoleLogin.getNamaRole().equals("Staff Payroll")){
+            for(GajiModel i : listCompareGaji){
+                if(i.getUserModel().getUuid()!=userLogin.getUuid()){
+                    listGaji.remove(i);
+                }
+            }
+        }
+        for(GajiModel i : listGaji){
+            long jumlah = 0;
+            List<LemburModel> lembur = i.getListLembur();
+            for(LemburModel j : lembur){
+                jumlah += j.getKompensasiPerJam()*(((j.getWaktuSelesai().getTime() - j.getWaktuMulai().getTime())/(1000 * 60 * 60))%24);
+                System.out.println(j.getWaktuSelesai().getTime() - j.getWaktuMulai().getTime());
+            }
+            jumlahLembur.add(jumlah);
+        }
+        System.out.print(jumlahLembur);
+        model.addAttribute("listGaji", listGaji);
+        model.addAttribute("jumlahLembur", jumlahLembur);
+        return "view-all-gaji";
+    }
+    
 }
