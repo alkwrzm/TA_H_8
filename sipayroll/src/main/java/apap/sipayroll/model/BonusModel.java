@@ -25,6 +25,7 @@ public class BonusModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private GajiModel gajiModel;
+
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)

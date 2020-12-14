@@ -25,6 +25,22 @@ public class GajiController {
     UserService userService;
 
 
+    @GetMapping("/gaji/{uuid}")
+    public String detailGaji(@PathVariable String uuid,
+                             Model model){
+        UserModel user = userService.findByUuid(uuid);
+
+        UserModel penyetuju = userService.findByUuid(user.getGajiModel().getUserPenyetujuModel().getUuid());
+        UserModel pengaju = userService.findByUuid(user.getGajiModel().getUserPengajuModel().getUuid());
+
+
+        model.addAttribute("user", user);
+        model.addAttribute("pengaju", pengaju);
+        model.addAttribute("penyetuju", penyetuju);
+        return "detail-gaji";
+
+    }
+
     @GetMapping("/gaji/add")
     public String addGajiFormPage(Model model){
         GajiModel gajiModel = new GajiModel();
