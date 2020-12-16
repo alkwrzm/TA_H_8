@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detail Gaji</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="card">
+    <h5 class="card-header">Detail Gaji</h5>
+    <div class="card-body">
+        <p><b>UUID User:</b></p><p th:text="${user.uuid}">
+        <p><b>Nama Pegawai:</b></p><p th:text="${user.username}">
+        <p><b>Gaji:</b></p><p th:text="${user.getGajiModel().getGajiPokok()}">
+        <p><b>Total Bonus:</b></p><p th:text="${jumlahBonus}">
+        <p><b>Total Lembur:</b></p><p th:text="${jumlahLembur.get(0)}">
+        <p><b>Nama Penyetuju:</b></p><p th:text="${penyetuju.username}">
+        <p><b>Nama Pengaju:</b></p><p th:text="${pengaju.username}">
+<!--        <p><b>Notes:</b></p><p th:text="">-->
+    </div>
+</div>
+
+</body>
+</html>

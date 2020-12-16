@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService{
     public UserModel findByUsername(String username) {
         return userDb.findByUsername(username);
     }
+
+    @Override
+    public UserModel findByUuid(String id) {
+        return userDb.findByUuid(id);
+    }
 }
