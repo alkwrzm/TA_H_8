@@ -5,6 +5,8 @@ import apap.sipayroll.model.GajiModel;
 import apap.sipayroll.model.LemburModel;
 import apap.sipayroll.model.RoleModel;
 import apap.sipayroll.model.UserModel;
+import apap.sipayroll.rest.BaseResponse;
+import apap.sipayroll.service.DetailGajiRestService;
 import apap.sipayroll.service.LemburService;
 import apap.sipayroll.service.GajiService;
 import apap.sipayroll.service.UserService;
@@ -14,8 +16,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Controller
@@ -31,6 +35,11 @@ public class GajiController {
     @Autowired
     LemburService lemburService;
 
+    @Autowired
+    DetailGajiRestService detailGajiRestService;
+
+
+
 
     @GetMapping("/gaji/{uuid}")
     public String detailGaji(@PathVariable String uuid,
@@ -39,6 +48,13 @@ public class GajiController {
         List<GajiModel> listGaji = gajiService.getListGaji();
         List<Long> jumlahLembur = new ArrayList<>();
         List<BonusModel> bonusnya = user.getGajiModel().getListBonus();
+        Mono<BaseResponse> respon = detailGajiRestService.getPelatihan(user.getUsername());
+
+        BaseResponse fix = respon.block();
+
+        List<LinkedHashMap<String,String>> list = (List<LinkedHashMap<String,String>>) fix.getResult();
+
+        System.out.print(list);
 
         Integer jumlahnya = 0;
 
@@ -69,6 +85,7 @@ public class GajiController {
         return "detail-gaji";
 
     }
+
 
     @GetMapping("/gaji/add")
     public String addGajiFormPage(Model model){
