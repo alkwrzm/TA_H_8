@@ -1,5 +1,6 @@
 package apap.sipayroll.controller;
 
+import apap.sipayroll.model.BonusModel;
 import apap.sipayroll.model.GajiModel;
 import apap.sipayroll.model.LemburModel;
 import apap.sipayroll.model.UserModel;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,11 +31,33 @@ public class GajiController {
     public String detailGaji(@PathVariable String uuid,
                              Model model){
         UserModel user = userService.findByUuid(uuid);
+        List<GajiModel> listGaji = gajiService.getListGaji();
+        List<Long> jumlahLembur = new ArrayList<>();
+        List<BonusModel> bonusnya = user.getGajiModel().getListBonus();
+
+        Integer jumlahnya = 0;
+
+        for (BonusModel b: bonusnya
+             ) { jumlahnya += b.getJumlahBonus();
+
+        }
+
+        for(GajiModel i : listGaji){
+            long jumlah = 0;
+            List<LemburModel> lembur = i.getListLembur();
+            for(LemburModel j : lembur){
+                jumlah += j.getKompensasiPerJam()*(((j.getWaktuSelesai().getTime() - j.getWaktuMulai().getTime())/(1000 * 60 * 60))%24);
+//                System.out.println(j.getWaktuSelesai().getTime() - j.getWaktuMulai().getTime());
+            }
+            jumlahLembur.add(jumlah);
+        }
 
         UserModel penyetuju = userService.findByUuid(user.getGajiModel().getUserPenyetujuModel().getUuid());
         UserModel pengaju = userService.findByUuid(user.getGajiModel().getUserPengajuModel().getUuid());
 
 
+        model.addAttribute("jumlahLembur", jumlahLembur);
+        model.addAttribute("jumlahBonus", jumlahnya);
         model.addAttribute("user", user);
         model.addAttribute("pengaju", pengaju);
         model.addAttribute("penyetuju", penyetuju);
