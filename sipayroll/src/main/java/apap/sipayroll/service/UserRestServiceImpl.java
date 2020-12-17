@@ -16,8 +16,6 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -73,6 +71,7 @@ public class UserRestServiceImpl implements UserRestService{
                     .bodyToMono(BaseResponse.class)
                     .block();
         }
+    }
 
     @Override
     public List<UserModel> getKaryawanLama() {
