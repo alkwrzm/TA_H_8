@@ -17,7 +17,7 @@ public class JenisBonusModel {
 
     @NotNull
     @Size(max = 200)
-    @Column(name = "gaji_pokok", nullable = false)
+    @Column(name = "nama", nullable = false)
     private String nama;
 
     @OneToMany(mappedBy = "jenisBonusModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

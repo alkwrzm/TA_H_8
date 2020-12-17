@@ -49,14 +49,14 @@ public class LemburController {
         //Cek apakah id ada di database gaji
         if(gajiHasId(userId, lembur)){
             model.addAttribute("msg", "Lembur berhasil ditambahkan!");
+            if(lemburService.dateValidator(waktuMulai,waktuSelesai)){
+                model.addAttribute("msg", "Lembur berhasil ditambahkan!");
+                lemburService.addLembur(lembur);
+            }else{
+                model.addAttribute("msg", "Lembur gagal ditambahkan (tanggal harus sama!)");}
         }else{
             model.addAttribute("msg", "Lembur gagal ditambahkan!");
-        }if(lemburService.dateValidator(waktuMulai,waktuSelesai)){
-            model.addAttribute("msg", "Lembur berhasil ditambahkan!");
-            lemburService.addLembur(lembur);
-        }else{
-            model.addAttribute("msg", "Lembur gagal ditambahkan (tanggal harus sama!)");}
-
+        }
         return "lembur-notif";
     }
 

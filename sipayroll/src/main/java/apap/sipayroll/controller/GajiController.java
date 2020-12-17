@@ -1,12 +1,7 @@
 package apap.sipayroll.controller;
 
-import apap.sipayroll.model.GajiModel;
-import apap.sipayroll.model.LemburModel;
-import apap.sipayroll.model.RoleModel;
-import apap.sipayroll.model.UserModel;
-import apap.sipayroll.service.LemburService;
-import apap.sipayroll.service.GajiService;
-import apap.sipayroll.service.UserService;
+import apap.sipayroll.model.*;
+import apap.sipayroll.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -30,6 +26,14 @@ public class GajiController {
     @Autowired
     LemburService lemburService;
 
+    @Autowired
+    RoleRestService roleRestService;
+
+    @Autowired
+    JenisBonusRestService jenisBonusRestService;
+
+    @Autowired
+    BonusRestService bonusRestService;
 
     @GetMapping("/gaji/add")
     public String addGajiFormPage(Model model){
@@ -48,6 +52,7 @@ public class GajiController {
         gajiModel.setUserPengajuModel(userPengaju);
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         gajiModel.setStatusPersetujuan(0);
+        userPengaju.setGajiModel(gajiModel);
         gajiService.addGaji(gajiModel);
         Long gaji = gajiModel.getId();
         model.addAttribute("gaji", gaji);
@@ -126,6 +131,46 @@ public class GajiController {
         model.addAttribute("listGaji", listGaji);
         model.addAttribute("jumlahLembur", jumlahLembur);
         return "view-all-gaji";
+    }
+
+    //Get Mapping Bonus
+    @GetMapping("/bonus")
+    private String addBonusForm(@ModelAttribute BonusModel bonus, Model model){
+        //UUID Karyawan(Dropdown)
+        RoleModel karyawanRole = roleRestService.findByNamaRole("Karyawan");
+        List<UserModel> karyawanList = karyawanRole.getListUser();
+        HashMap<String, Long> karyawanGajiId = new HashMap<String,Long>();
+        for(UserModel karyawan : karyawanList){
+            System.out.println(karyawan.getGajiModel());
+            karyawanGajiId.put(karyawan.getUuid(), karyawan.getGajiModel().getId());
+        }
+        model.addAttribute("karyawanGajiId", karyawanList);
+        //Jenis Bonus
+        List<JenisBonusModel> jenisBonus = jenisBonusRestService.findAll();
+        model.addAttribute("jenisBonus", jenisBonus);
+        model.addAttribute("bonus", new BonusModel());
+        return "form-add-bonus";
+    }
+
+    @PostMapping("/bonus")
+    private String addBonusSubmit(
+            @RequestParam(name = "karyawanGajiId") Long gajiId,
+            @RequestParam(name = "jenisBonus") String jenisBonus,
+            @ModelAttribute BonusModel bonus,
+            Model model){
+        //Cari gaji pokok Karyawan
+        GajiModel gaji = gajiService.getGajiById(gajiId);
+        Integer gapokKaryawan = gaji.getGajiPokok();
+        //Cari Id Jenis Bonus. Apply validator
+        boolean validity = jenisBonusRestService.validatorAndSetter(Long.parseLong(jenisBonus), bonus, gapokKaryawan);
+        if(validity){
+            model.addAttribute("msg", "Bonus berhasil ditambahkan!");
+            bonus.setGajiModel(gaji);
+            bonusRestService.save(bonus);
+        }else{
+            model.addAttribute("msg", "Bonus gagal ditambahkan!");
+        }
+        return "bonus-notif";
     }
     
 }

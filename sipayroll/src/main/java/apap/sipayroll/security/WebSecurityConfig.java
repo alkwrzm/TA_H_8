@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
+                .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/gaji/add").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
                 .antMatchers("/gaji/update/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
                 .antMatchers("/gaji/delete/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
@@ -30,12 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/lembur/change/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
                 .antMatchers("/lembur/delete/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
                 .antMatchers("/lembur/view/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
+                .antMatchers("/bonus").hasAnyAuthority("Kepala Bagian Pelatihan", "Kepala Departemen HR")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll()
+                .and()
+                .cors().and().csrf().disable()
         ;
     }
     @Bean
