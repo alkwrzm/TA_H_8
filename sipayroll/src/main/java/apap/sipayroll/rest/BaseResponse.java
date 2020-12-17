@@ -8,7 +8,6 @@ public class BaseResponse<T> {
     public int getStatus() {
         return status;
     }
-
     public void setStatus(int status) {
         this.status = status;
     }
@@ -16,7 +15,6 @@ public class BaseResponse<T> {
     public String getMessage() {
         return message;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
@@ -24,8 +22,8 @@ public class BaseResponse<T> {
     public T getResult() {
         return result;
     }
-
     public void setResult(T result) {
         this.result = result;
     }
 }
+

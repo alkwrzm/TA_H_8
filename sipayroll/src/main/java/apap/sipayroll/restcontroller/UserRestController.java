@@ -38,6 +38,21 @@ public class UserRestController {
     @Autowired
     private RoleService roleService;
 
+
+
+    @GetMapping(value = "/karyawan-lama")
+    private List<UserModel> getKaryawanLama(){
+        try {
+            return userRestService.getKaryawanLama();
+
+        }catch (NoSuchElementException e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Tidak ada Karyawan Lama"
+            );
+        }
+
+    }
+
     @PostMapping(value = "/user")
     private UserModel createUser(@Valid
                                      @RequestBody UserModel user,
@@ -117,3 +132,4 @@ public class UserRestController {
 
 
 }
+

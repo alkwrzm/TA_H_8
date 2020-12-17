@@ -17,12 +17,21 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+
+
 @Service
 @Transactional
 public class UserRestServiceImpl implements UserRestService{
     private final WebClient webClient;
+    
     @Autowired
-    private UserDb userDb;
+    private UserDb user;
 
     public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(Setting.userUrl).build(); }
@@ -31,16 +40,16 @@ public class UserRestServiceImpl implements UserRestService{
 
     @Override
     public UserModel createUser(UserModel userModel) {
-        return userDb.save(userModel);
+        return user.save(userModel);
     }
     @Override
     public UserModel findUserByUsername(String username) {
-        return userDb.findByUsername(username);
+        return user.findByUsername(username);
     }
 
     @Override
     public UserModel findUserByUuid(String uuid) {
-        return userDb.findByUuid(uuid);
+        return user.findByUuid(uuid);
     }
 
     @Override
@@ -64,5 +73,41 @@ public class UserRestServiceImpl implements UserRestService{
                     .bodyToMono(BaseResponse.class)
                     .block();
         }
+
+    @Override
+    public List<UserModel> getKaryawanLama() {
+        List<UserModel> karyawan = getAllKaryawan();
+        List<UserModel> result = new ArrayList<>();
+        LocalDate curr = LocalDate.now();
+
+        for (UserModel a : karyawan) {
+            if (a.getGajiModel() != null){
+                Date tanggalMasuk = a.getGajiModel().getTanggalMasuk();
+                LocalDate tanggalMasukFormat = tanggalMasuk.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Period period = Period.between(tanggalMasukFormat, curr);
+
+                System.out.println(period.getYears() + "disini");
+                System.out.println();
+                if (period.getYears() >= 2) {
+                    result.add(a);}
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<UserModel> getAllKaryawan() {
+        return user.findAll();
+    }
+
+    @Override
+    public void setLamaBerkerjaAllKaryawan(UserModel user) {
+        LocalDate curr = LocalDate.now();
+        Date tanggalMasuk = user.getGajiModel().getTanggalMasuk();
+        LocalDate tanggalMasukFormat = tanggalMasuk.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Period period = Period.between(tanggalMasukFormat, curr);
+        Integer periode = (period.getYears());
+        user.setLamaBerkerja(periode);
+        System.out.print("masukga" + periode);
     }
 }

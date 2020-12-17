@@ -10,4 +10,5 @@ public interface UserService {
     public String encrypt (String password);
     UserModel findByUsername(String username);
     List<UserModel> getListUser();
+    UserModel findByUuid(String id);
 }

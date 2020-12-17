@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Add Lowongan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="row">
+    <form class="col-md-12" th:action="@{/lowingan/add}"th:object="${lowongan}" method = "POST">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">Divisi</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="divisi">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">Posisi</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="posisi">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">Jumlah</label>
+            <div class="col-md-6">
+                <input type="number" class="form-control" name="jumlah" placeholder="Masukkan Jumlah Karyawan">
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <label class="col-md-2">Jenis Lowongan</label>
+            <div class="col-md-6">
+                <select name="jenisLowongan" class="form-control">
+                    <option value="">Pilih Jenis</option>
+                    <option value="1">Full Time</option>
+                    <option value="2">Part Time</option>
+                    <option value="3">Internship</option>
+                    <option value="4">Freelance</option>
+                </select>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row"><br><br></div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 d-flex justify-content-around">
+                <a th:href="@{/}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                <button class="btn btn-primary btn-lg" type="submit">Simpan</button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
