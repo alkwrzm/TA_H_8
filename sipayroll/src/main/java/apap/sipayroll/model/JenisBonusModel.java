@@ -17,12 +17,13 @@ public class JenisBonusModel {
 
     @NotNull
     @Size(max = 200)
-    @Column(name = "gaji_pokok", nullable = false)
+    @Column(name = "nama", nullable = false)
     private String nama;
 
     @OneToMany(mappedBy = "jenisBonusModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<BonusModel> listBonus;
+
 
     public Long getId() {
         return id;
@@ -47,4 +48,6 @@ public class JenisBonusModel {
     public void setListBonus(List<BonusModel> listBonus) {
         this.listBonus = listBonus;
     }
+
+
 }

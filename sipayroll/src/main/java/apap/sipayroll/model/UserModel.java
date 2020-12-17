@@ -33,6 +33,8 @@ public class UserModel implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "lamaBerkerja")
+    private Integer lamaBerkerja;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_role", referencedColumnName = "id_role", nullable = false)
@@ -40,16 +42,23 @@ public class UserModel implements Serializable {
     @JsonIgnore
     private RoleModel roleModel;
 
-    @OneToOne(mappedBy = "userModel", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userModel", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private GajiModel gajiModel;
 
-    @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<GajiModel> listGajiModel;
 
+
+    public Integer getLamaBerkerja() {
+        return lamaBerkerja;
+    }
+
+    public void setLamaBerkerja(Integer lamaBerkerja) {
+        this.lamaBerkerja = lamaBerkerja;
+    }
 
     public String getUuid() {
         return uuid;

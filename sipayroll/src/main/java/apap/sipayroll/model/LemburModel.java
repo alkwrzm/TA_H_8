@@ -45,7 +45,6 @@ public class LemburModel implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_gaji", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private GajiModel gajiModel;
 
     public Long getId() {
