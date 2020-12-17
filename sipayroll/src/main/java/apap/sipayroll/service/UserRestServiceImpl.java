@@ -27,14 +27,17 @@ public class UserRestServiceImpl implements UserRestService{
         List<UserModel> karyawan = getAllKaryawan();
         List<UserModel> result = new ArrayList<>();
         LocalDate curr = LocalDate.now();
-        for (UserModel a : karyawan
-        ) {
+
+        for (UserModel a : karyawan) {
             if (a.getGajiModel() != null){
                 Date tanggalMasuk = a.getGajiModel().getTanggalMasuk();
                 LocalDate tanggalMasukFormat = tanggalMasuk.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Period period = Period.between(tanggalMasukFormat, curr);
-                System.out.println(period.getYears());
-                if (period.getYears() >= 2) result.add(a);
+
+                System.out.println(period.getYears() + "disini");
+                System.out.println();
+                if (period.getYears() >= 2) {
+                    result.add(a);}
             }
         }
         return result;
@@ -43,5 +46,16 @@ public class UserRestServiceImpl implements UserRestService{
     @Override
     public List<UserModel> getAllKaryawan() {
         return user.findAll();
+    }
+
+    @Override
+    public void setLamaBerkerjaAllKaryawan(UserModel user) {
+        LocalDate curr = LocalDate.now();
+        Date tanggalMasuk = user.getGajiModel().getTanggalMasuk();
+        LocalDate tanggalMasukFormat = tanggalMasuk.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Period period = Period.between(tanggalMasukFormat, curr);
+        Integer periode = (period.getYears());
+        user.setLamaBerkerja(periode);
+        System.out.print("masukga" + periode);
     }
 }

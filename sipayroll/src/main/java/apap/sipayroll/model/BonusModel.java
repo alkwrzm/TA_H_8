@@ -23,7 +23,6 @@ public class BonusModel {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_gaji", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private GajiModel gajiModel;
 
     @NotNull
@@ -35,7 +34,6 @@ public class BonusModel {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_jenis_bonus", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private JenisBonusModel jenisBonusModel;
 
     public Long getId() {

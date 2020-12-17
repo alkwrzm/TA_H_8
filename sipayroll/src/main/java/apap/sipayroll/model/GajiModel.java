@@ -54,9 +54,11 @@ public class GajiModel {
 
 
     @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<LemburModel> listLembur;
 
     @OneToMany(mappedBy = "gajiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BonusModel> listBonus;
 
     public Long getId() {
