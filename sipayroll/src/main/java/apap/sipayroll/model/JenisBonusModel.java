@@ -24,6 +24,7 @@ public class JenisBonusModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<BonusModel> listBonus;
 
+
     public Long getId() {
         return id;
     }
@@ -47,4 +48,6 @@ public class JenisBonusModel {
     public void setListBonus(List<BonusModel> listBonus) {
         this.listBonus = listBonus;
     }
+
+
 }

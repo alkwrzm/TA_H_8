@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserModel findByUuid(String uuid){
-        return userDb.findByUsername(uuid);
+    public UserModel findByUuid(String uuid) {
+        return userDb.findByUuid(uuid);
     }
 }
