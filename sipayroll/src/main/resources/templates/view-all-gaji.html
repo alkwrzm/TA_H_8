@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Add Gaji</title>
+    <title>View All Gaji</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
@@ -30,10 +30,10 @@
                         <td th:text="${gaji.gajiPokok}"></td>
                         <td th:text="${gaji.gajiPokok + jumlahLembur.get((iterationStatus.count)-1)}"></td>
                         <td>
-                            <a th:href="@{/}" class="btn text-light bg-dark">Lihat</a>
+                            <a th:href="@{/gaji/} + ${gaji.getUserModel().username}" class="btn text-light bg-dark">Lihat</a>
                             <a sec:authorize="hasAnyAuthority('Staff Payroll','Kepala Departemen HR')" th:href="@{/gaji/update/} + ${gaji.id}" class="btn btn-warning" style="background-color:#EEC81B; color:white;">Update</a>
                             <a sec:authorize="hasAnyAuthority('Staff Payroll','Kepala Departemen HR')" th:href="@{gaji/delete/} + ${gaji.id}" class="btn btn-danger">Delete</a>
-                            <a sec:authorize="hasAnyAuthority('Kepala Departemen HR')" th:href="@{gaji/update-status/} + ${gaji.id}" class="btn btn-success">Ubah Status</a>
+<!--                            <a sec:authorize="hasAnyAuthority('Kepala Departemen HR')" th:href="@{gaji/update-status/} + ${gaji.getUserModel().username}" class="btn btn-success">Ubah Status</a>-->
                         </td>
                     </tr>
                     </tbody>

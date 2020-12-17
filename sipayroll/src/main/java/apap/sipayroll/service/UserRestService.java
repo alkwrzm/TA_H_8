@@ -8,5 +8,7 @@ public interface UserRestService {
 
     List<UserModel> getKaryawanLama();
     List<UserModel> getAllKaryawan();
+    void setLamaBerkerjaAllKaryawan(UserModel user);
+
 
 }
