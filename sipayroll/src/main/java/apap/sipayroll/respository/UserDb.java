@@ -12,13 +12,9 @@ import java.util.List;
 @Repository
 public interface UserDb extends JpaRepository<UserModel, Long> {
     UserModel findByUsername(String username);
-
-    UserModel findByUuid(String id);
-
+    UserModel findByUuid(String uuid);
     @Query(
             value = "SELECT * FROM USERS u WHERE u.status = 1",
             nativeQuery = true)
     List<UserModel> karyawanLama();
-
-
 }

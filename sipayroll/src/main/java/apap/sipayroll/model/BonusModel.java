@@ -20,7 +20,7 @@ public class BonusModel {
     @Column(name = "jumlah_bonus", nullable = false)
     private Integer jumlahBonus;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade=CascadeType.ALL)
     @JoinColumn(name = "id_gaji", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private GajiModel gajiModel;
@@ -31,7 +31,7 @@ public class BonusModel {
     @Column(name = "tanggal_diberikan", nullable = false)
     private Date tanggalDiberikan;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade=CascadeType.ALL)
     @JoinColumn(name = "id_jenis_bonus", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private JenisBonusModel jenisBonusModel;
