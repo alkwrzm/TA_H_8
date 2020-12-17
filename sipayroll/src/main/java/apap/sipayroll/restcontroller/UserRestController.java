@@ -4,6 +4,7 @@ package apap.sipayroll.restcontroller;
 import apap.sipayroll.model.UserModel;
 import apap.sipayroll.service.UserRestService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,6 @@ public class UserRestController {
 
     @GetMapping(value = "/karyawan-lama")
     private List<UserModel> getKaryawanLama(){
-
         try {
             return userRestService.getKaryawanLama();
 
@@ -33,6 +33,7 @@ public class UserRestController {
                     HttpStatus.NOT_FOUND, "Tidak ada Karyawan Lama"
             );
         }
+
     }
 
 

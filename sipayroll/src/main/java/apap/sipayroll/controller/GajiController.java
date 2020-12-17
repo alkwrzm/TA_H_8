@@ -48,6 +48,13 @@ public class GajiController {
         List<GajiModel> listGaji = gajiService.getListGaji();
         List<Long> jumlahLembur = new ArrayList<>();
         List<BonusModel> bonusnya = user.getGajiModel().getListBonus();
+        Mono<BaseResponse> respon = detailGajiRestService.getPelatihan(user.getUsername());
+
+        BaseResponse fix = respon.block();
+
+        List<LinkedHashMap<String,String>> list = (List<LinkedHashMap<String,String>>) fix.getResult();
+
+        System.out.print(list);
 
         Mono<BaseResponse> respon = detailGajiRestService.getPelatihan(username);
 

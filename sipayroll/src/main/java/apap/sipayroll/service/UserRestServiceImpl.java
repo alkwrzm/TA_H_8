@@ -27,11 +27,13 @@ public class UserRestServiceImpl implements UserRestService{
         List<UserModel> karyawan = getAllKaryawan();
         List<UserModel> result = new ArrayList<>();
         LocalDate curr = LocalDate.now();
+
         for (UserModel a : karyawan) {
             if (a.getGajiModel() != null){
                 Date tanggalMasuk = a.getGajiModel().getTanggalMasuk();
                 LocalDate tanggalMasukFormat = tanggalMasuk.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Period period = Period.between(tanggalMasukFormat, curr);
+
                 System.out.println(period.getYears() + "disini");
                 System.out.println();
                 if (period.getYears() >= 2) {

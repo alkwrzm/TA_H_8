@@ -34,6 +34,7 @@
                             <a sec:authorize="hasAnyAuthority('Staff Payroll','Kepala Departemen HR')" th:href="@{/gaji/update/} + ${gaji.id}" class="btn btn-warning" style="background-color:#EEC81B; color:white;">Update</a>
                             <a sec:authorize="hasAnyAuthority('Staff Payroll','Kepala Departemen HR')" th:href="@{gaji/delete/} + ${gaji.id}" class="btn btn-danger">Delete</a>
 <!--                            <a sec:authorize="hasAnyAuthority('Kepala Departemen HR')" th:href="@{gaji/update-status/} + ${gaji.getUserModel().username}" class="btn btn-success">Ubah Status</a>-->
+
                         </td>
                     </tr>
                     </tbody>
