@@ -1,6 +1,7 @@
 package apap.sipayroll.rest;
 
 import apap.sipayroll.model.RoleModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,8 +32,7 @@ public class UserDetail {
 
 
     @JsonProperty("tanggalLahir")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private  Date tanggalLahir;
+    private  String tanggalLahir;
 
 
     @JsonProperty("alamat")
@@ -40,7 +40,7 @@ public class UserDetail {
 
 
     @JsonProperty("idRole")
-    private Integer roleId;
+    private Long idRole;
 
     public String getIdPegawai() {
         return idPegawai;
@@ -81,7 +81,7 @@ public class UserDetail {
     public void setTempatLahir(String tempatLahir) {
         this.tempatLahir = tempatLahir;
     }
-
+/*
     public Date getTanggalLahir() {
         return tanggalLahir;
     }
@@ -90,20 +90,30 @@ public class UserDetail {
         this.tanggalLahir = tanggalLahir;
     }
 
+ */
+
+
+
+    public void setTanggalLahir(String tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
+    }
+
     public String getAlamat() {
         return alamat;
     }
+
+
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Long getIdRole() {
+        return idRole;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setIdRole(Long idRole) {
+        this.idRole = idRole;
     }
 }
 
