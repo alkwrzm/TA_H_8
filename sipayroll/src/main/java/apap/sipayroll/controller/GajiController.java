@@ -19,6 +19,7 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class GajiController {
@@ -47,18 +48,19 @@ public class GajiController {
         List<GajiModel> listGaji = gajiService.getListGaji();
         List<Long> jumlahLembur = new ArrayList<>();
         List<BonusModel> bonusnya = user.getGajiModel().getListBonus();
-        Mono<BaseResponse> respon = detailGajiRestService.getPelatihan(user.getUsername());
+
+        Mono<BaseResponse> respon = detailGajiRestService.getPelatihan(username);
 
         BaseResponse fix = respon.block();
 
         List<LinkedHashMap<String,String>> listPelatihan = (List<LinkedHashMap<String,String>>) fix.getResult();
 
-        System.out.print(listPelatihan + "aduh");
+        Boolean notes = true;
 
         if(listPelatihan == null){
-            Boolean notes = false;
+            notes = false;
         }else {
-            Boolean notes = true;
+            notes = true;
         }
 
         Integer jumlahnya = 0;
@@ -78,15 +80,29 @@ public class GajiController {
             jumlahLembur.add(jumlah);
         }
 
-        UserModel penyetuju = userService.findByUuid(user.getGajiModel().getUserPenyetujuModel().getUuid());
+        Boolean penyetujuAda;
+
+        try {
+            UserModel penyetuju = userService.findByUuid(user.getGajiModel().getUserPenyetujuModel().getUuid());
+            penyetujuAda = true;
+            model.addAttribute("penyetuju", penyetuju);
+
+        }catch (NullPointerException e){
+            penyetujuAda = false;
+            String penyetuju = "-";
+            model.addAttribute("penyetuju", penyetuju);
+        }
+
+
         UserModel pengaju = userService.findByUuid(user.getGajiModel().getUserPengajuModel().getUuid());
 
 
         model.addAttribute("jumlahLembur", jumlahLembur);
+        model.addAttribute("penyetujuAda", penyetujuAda);
         model.addAttribute("jumlahBonus", jumlahnya);
+        model.addAttribute("notes", notes);
         model.addAttribute("user", user);
         model.addAttribute("pengaju", pengaju);
-        model.addAttribute("penyetuju", penyetuju);
         return "detail-gaji";
 
     }
@@ -141,6 +157,7 @@ public class GajiController {
         model.addAttribute("gaji", idGaji);
         return "update-gaji";
     }
+
     @GetMapping("gaji/delete/{id}")
     public String deleteGaji(
             @PathVariable Long id,
@@ -221,6 +238,39 @@ public class GajiController {
         model.addAttribute("listGaji", listGaji);
         model.addAttribute("jumlahLembur", jumlahLembur);
         return "view-all-gaji-status";
+    }
+
+    @GetMapping("gaji/status/update-status/{id}")
+    public String ubahStatusGaji(
+        @PathVariable Long id,
+        Model model){
+            GajiModel gaji = gajiService.getGajiById(id);
+            UserModel userPengaju = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            if(userPengaju.equals(gaji.getUserModel())){
+                return "error-update-gaji";
+            }else{
+                model.addAttribute("gaji", gaji);
+                return "form-change-status-gaji";
+
+            }
+    }
+
+    @PostMapping("/gaji/status/update-status")
+    public String updateGajiStatusSubmit(
+            @ModelAttribute GajiModel gaji,
+            @RequestParam(name="statusPersetujuan") Optional<Integer> status,
+            @RequestParam(name="usernya") String usernameUsernya,
+            @RequestParam(name="uuid_pengaju") String pengaju,
+            Model model){
+        UserModel userPenyetuju = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        gaji.setStatusPersetujuan(status.get());
+        gaji.setUserPenyetujuModel(userPenyetuju);
+        gaji.setUserPengajuModel(userService.findByUuid(pengaju));
+        gaji.setUserModel(userService.findByUsername(usernameUsernya));
+        gajiService.updateGaji(gaji);
+        Long idGaji = gaji.getId();
+        model.addAttribute("gaji", idGaji);
+        return "update-gaji";
     }
 
     @GetMapping("gaji/viewall/karyawan-lama")

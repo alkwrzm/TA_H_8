@@ -18,23 +18,31 @@
                     <h3>Change Status Gaji</h3>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/gaji/change-status}" th:object="${gaji}" method="POST">
-                        <input type="hidden" th:field="*{id}"/>
+                    <form th:action="@{/gaji/status/update-status}" th:object="${gaji}" method="POST">
+                        <input type="hidden" name="id" th:value="*{id}"/>
                         Karyawan:<br>
-                        <input class="form-control" type="datetime-local" name="waktuMulai" th:value="*{waktuMulai}" />
+                        <input class="form-control disabled" th:value="*{getUserModel().getUsername()}" readonly/>
+                        <br>
+                       Gaji Pokok:<br>
+                        <input class="form-control disabled" name="gajiPokok" th:value="*{gajiPokok}" readonly/>
+                        <br>
+                        Tanggal Masuk:<br>
+                        <input class="form-control disabled" name="tanggalMasuk" type="datetime-local" th:value="*{{tanggalMasuk}}" readonly/>
+                        <br>
+                        User Pengaju:<br>
+                        <input class="form-control disabled" type="text"  th:value="*{getUserPengajuModel().getUsername()}" readonly/>
+                        <br>
+                        <input type="hidden" name="usernya" th:value="*{getUserModel().getUsername()}"/>
+                        <input type="hidden" name="uuid_pengaju" th:value="*{getUserPengajuModel.getUuid()}"/>
+                        Status Persetujuan:<br>
+                        <select class="form-control" name="statusPertujuan" th:field="*{statusPersetujuan}">
+                            <option selected value="">-- Pilih Status Persetujuan --</option>
+                            <option th:value="1">Ditolak</option>
+                            <option th:value="2">Disetujui</option>
+                        </select>
                         <br><br>
-                        Waktu Selesai:<br>
-                        <input class="form-control" type="datetime-local" name="waktuSelesai" th:value="*{waktuSelesai}" />
-                        <br><<br>
-                        Kompensasi Per Jam:<br>
-                        <input class="form-control" type="text" name="kompensasiPerJam" th:value="*{kompensasiPerJam}" readonly/>
-                        <br><br>
-                        <input type="hidden" th:field="*{statusPersetujuan}"/>
-                        Status Pertujuan:<br>
-                        <input class="form-control" type="text" name="statusPersetujuan" th:value="${status}" disabled/>
-                        <input type="hidden" th:field="*{gajiModel}"/>
-                        <br><br><br>
-                        <button class="btn btn-dark" type="submit" value="Submit">Submit</button>
+                        <a th:href="@{/}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                        <button class="btn btn-primary btn-lg" type="submit">Simpan</button>
                     </form>
                 </div>
             </div>
