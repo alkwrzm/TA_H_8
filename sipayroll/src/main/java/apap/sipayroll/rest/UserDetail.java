@@ -39,8 +39,8 @@ public class UserDetail {
     private  String alamat;
 
 
-    @JsonProperty("idRole")
-    private Long idRole;
+    @JsonProperty("roleId")
+    private Long roleId;
 
     public String getIdPegawai() {
         return idPegawai;
@@ -81,17 +81,6 @@ public class UserDetail {
     public void setTempatLahir(String tempatLahir) {
         this.tempatLahir = tempatLahir;
     }
-/*
-    public Date getTanggalLahir() {
-        return tanggalLahir;
-    }
-
-    public void setTanggalLahir(Date tanggalLahir) {
-        this.tanggalLahir = tanggalLahir;
-    }
-
- */
-
 
 
     public void setTanggalLahir(String tanggalLahir) {
@@ -108,12 +97,16 @@ public class UserDetail {
         this.alamat = alamat;
     }
 
+    public String getTanggalLahir() {
+        return tanggalLahir;
+    }
+
     public Long getIdRole() {
-        return idRole;
+        return roleId;
     }
 
     public void setIdRole(Long idRole) {
-        this.idRole = idRole;
+        this.roleId = idRole;
     }
 }
 
