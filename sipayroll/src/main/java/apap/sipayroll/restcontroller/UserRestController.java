@@ -66,7 +66,6 @@ public class UserRestController {
             return userRestService.createUser(user);
         }
     }
-
     @GetMapping(value = "/user/{uuid}")
     private UserModel retrieveUser(@PathVariable(value = "uuid") String uuid){
         try{
@@ -79,33 +78,37 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/user")
-    private BaseResponse<LinkedHashMap> getPegawai(Authentication auth){
+    private BaseResponse getPegawai(Authentication auth){
         String username = auth.getName();
         return userRestService.getPegawai(username);
     }
 
+    @PostMapping(value = "/add/pegawaii")
+    public BaseResponse addUserSubmit(
+            @RequestBody UserDetail user){
+        System.out.println(user.getIdRole());
+        return userRestService.postPegawai(user);
+    }
 
-    @RequestMapping(value = "/add/user", method = POST)
-    public String addUserSubmit(
+
+    @PostMapping(value = "/add/pegawai")
+    public BaseResponse addUserSubmits(
             @RequestParam("nama") String nama,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("roleId") Long idRole,
-            @RequestParam("noTelepon") Integer noTelepon,
+            @RequestParam("noTelepon") String noTelepon,
             @RequestParam("tempatLahir") String tempatLahir,
             @RequestParam("tanggalLahir") String tanggalLahir,
             @RequestParam("alamat") String alamat,
             Model model
-    ) throws ParseException {
-        if(userService.findByUsername(username) != null){
-            String notif = "Gunakan username yang lain";
-            model.addAttribute("notif", notif);
-
-
-        } else{
-
-            //Date formatter5=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(tanggalLahir);
-            Date formatter5=new SimpleDateFormat("yyyy-MM-dd").parse(tanggalLahir);
+    ) {
+//        if(userService.findByUsername(username) != null){
+//            String notif = "Gunakan username yang lain";
+//            model.addAttribute("notif", notif);
+//
+//
+//        } else{
             UserModel user = new UserModel();
             RoleModel role = roleService.findById(idRole);
             user.setUsername(username);
@@ -116,18 +119,13 @@ public class UserRestController {
             pegawai.setNama(nama);
             pegawai.setUsername(username);
             pegawai.setIdRole(idRole);
-            pegawai.setNoTelepon(noTelepon.toString());
+            pegawai.setNoTelepon(noTelepon);
             pegawai.setTanggalLahir(tanggalLahir);
             pegawai.setTempatLahir(tempatLahir);
             pegawai.setAlamat(alamat);
 
-            userRestService.postPegawai(pegawai);
-            String notif = "Pengguna dengan nama " + pegawai.getNama() + " berhasil ditambahkan!";
-            model.addAttribute("notif", notif);
-        }
-        List<RoleModel> role = roleService.findAll();
-        model.addAttribute("listRole", role);
-        return "redirect:/";
+       // }
+        return userRestService.postPegawai(pegawai);
     }
 
 
