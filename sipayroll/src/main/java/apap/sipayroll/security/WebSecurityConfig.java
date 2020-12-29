@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/gaji/update/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
                 .antMatchers("/gaji/delete/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR")
                 .antMatchers("/gaji/status/**").hasAnyAuthority("Kepala Departemen HR")
+                .antMatchers("/user/addUser/**").hasAnyAuthority("Kepala Departemen HR")
                 .antMatchers("/lembur/add/**").hasAnyAuthority("Karyawan")
                 .antMatchers("/lembur/change/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
                 .antMatchers("/lembur/delete/**").hasAnyAuthority("Staff Payroll","Kepala Departemen HR", "Karyawan")
@@ -48,14 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder encoder(){return new BCryptPasswordEncoder();}
 
-    @Autowired
-    public void cofigureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .passwordEncoder(encoder())
-                .withUser("user1").password(encoder().encode("user1"))
-
-                .roles("Karyawan");
-    }
     @Autowired
     private UserDetailsService userDetailsService;
 

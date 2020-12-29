@@ -7,6 +7,7 @@ import apap.sipayroll.respository.UserDb;
 import apap.sipayroll.rest.BaseResponse;
 import apap.sipayroll.rest.Setting;
 import apap.sipayroll.rest.UserDetail;
+import apap.sipayroll.rest.UserResponse;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -53,7 +54,7 @@ public class UserRestServiceImpl implements UserRestService{
         return user.save(newuser);
     }
     @Override
-    public Mono<BaseResponse> postPegawai(UserDetail pegawai) {
+    public UserResponse postPegawai(UserDetail pegawai) {
 
         System.out.println(pegawai.getIdRole());
         System.out.println(pegawai.getUsername());
@@ -63,15 +64,16 @@ public class UserRestServiceImpl implements UserRestService{
         System.out.println(pegawai.getNama());
         System.out.println(pegawai.getIdPegawai());
         System.out.println(pegawai.getAlamat());
-        {
-            return this.webClient
-                    .post()
-                    .uri("api/v1/pegawai")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(pegawai)
-                    .retrieve()
-                    .bodyToMono(BaseResponse.class);
-        }
+
+        return this.webClient
+                .post()
+                .uri("api/v1/pegawai")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(pegawai)
+                .retrieve()
+                .bodyToMono(UserResponse.class)
+                .block();
+
     }
 
     @Override
@@ -85,11 +87,12 @@ public class UserRestServiceImpl implements UserRestService{
     }
 
     @Override
-    public Mono<BaseResponse> getPegawai(String username) {
-        return this.webClient.get().uri(uriBuilder -> uriBuilder.path("/api/v1/pegawai/{username}")
-                .build(username)).
+    public UserResponse getPegawai(String username) {
+        return this.webClient.get().uri(uriBuilder -> uriBuilder.path("/api/v1/pegawai/{username}").
+                build(username)).
                 retrieve().
-                bodyToMono(BaseResponse.class);
+                bodyToMono(UserResponse.class).
+                block();
     }
 
     @Override

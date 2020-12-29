@@ -3,6 +3,7 @@ package apap.sipayroll.service;
 import apap.sipayroll.model.UserModel;
 import apap.sipayroll.rest.BaseResponse;
 import apap.sipayroll.rest.UserDetail;
+import apap.sipayroll.rest.UserResponse;
 import reactor.core.publisher.Mono;
 import java.util.List;
 
@@ -13,9 +14,9 @@ public interface UserRestService {
 
     UserModel findUserByUuid(String uuid);
 
-    Mono<BaseResponse> getPegawai(String uuid);
+    UserResponse getPegawai(String uuid);
 
-    Mono<BaseResponse> postPegawai(UserDetail pegawai);
+    UserResponse postPegawai(UserDetail pegawai);
     //Mono<ResepDetail> postStatus();
     List<UserModel> getKaryawanLama();
     List<UserModel> getAllKaryawan();
