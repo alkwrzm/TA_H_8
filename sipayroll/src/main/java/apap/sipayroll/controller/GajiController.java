@@ -60,8 +60,6 @@ public class GajiController {
         List<GajiModel> listGaji = gajiService.getListGaji();
         List<Long> jumlahLembur = new ArrayList<>();
         List<BonusModel> bonusnya = user.getGajiModel().getListBonus();
-
-
         Mono<BaseResponse> respon = detailGajiRestService.getPelatihan(username);
 
         BaseResponse fix = respon.block();

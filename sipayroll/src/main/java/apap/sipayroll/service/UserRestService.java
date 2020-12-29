@@ -13,9 +13,9 @@ public interface UserRestService {
 
     UserModel findUserByUuid(String uuid);
 
-    BaseResponse getPegawai(String uuid);
+    Mono<BaseResponse> getPegawai(String uuid);
 
-    BaseResponse postPegawai(UserDetail pegawai);
+    Mono<BaseResponse> postPegawai(UserDetail pegawai);
     //Mono<ResepDetail> postStatus();
     List<UserModel> getKaryawanLama();
     List<UserModel> getAllKaryawan();

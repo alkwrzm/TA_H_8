@@ -78,13 +78,13 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/user")
-    private BaseResponse getPegawai(Authentication auth){
+    private Mono<BaseResponse> getPegawai(Authentication auth){
         String username = auth.getName();
         return userRestService.getPegawai(username);
     }
 
     @PostMapping(value = "/add/pegawaii")
-    public BaseResponse addUserSubmit(
+    public Mono<BaseResponse> addUserSubmit(
             @RequestBody UserDetail user){
         System.out.println(user.getIdRole());
         return userRestService.postPegawai(user);
@@ -92,7 +92,7 @@ public class UserRestController {
 
 
     @PostMapping(value = "/add/pegawai")
-    public BaseResponse addUserSubmits(
+    public Mono<BaseResponse> addUserSubmits(
             @RequestParam("nama") String nama,
             @RequestParam("username") String username,
             @RequestParam("password") String password,

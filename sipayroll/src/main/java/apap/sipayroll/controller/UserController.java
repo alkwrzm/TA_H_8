@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,9 +59,13 @@ public class UserController {
     private String userProfile(Authentication auth, Model model){
 
         String username = auth.getName();
-        BaseResponse baseResponse = userRestService.getPegawai(username);
-        UserDetail user =baseResponse.getResult();
-        model.addAttribute("user", user);
+        Mono<BaseResponse> respon = userRestService.getPegawai(username);
+
+        BaseResponse fix = respon.block();
+
+        List<LinkedHashMap<String,String>> listUser = (List<LinkedHashMap<String,String>>) fix.getResult();
+
+        model.addAttribute("user", listUser);
         return "user";
 
     }

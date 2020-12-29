@@ -53,7 +53,7 @@ public class UserRestServiceImpl implements UserRestService{
         return user.save(newuser);
     }
     @Override
-    public BaseResponse postPegawai(UserDetail pegawai) {
+    public Mono<BaseResponse> postPegawai(UserDetail pegawai) {
 
         System.out.println(pegawai.getIdRole());
         System.out.println(pegawai.getUsername());
@@ -70,8 +70,7 @@ public class UserRestServiceImpl implements UserRestService{
                     .contentType(MediaType.APPLICATION_JSON)
                     .bodyValue(pegawai)
                     .retrieve()
-                    .bodyToMono(BaseResponse.class)
-                    .block();
+                    .bodyToMono(BaseResponse.class);
         }
     }
 
@@ -86,12 +85,11 @@ public class UserRestServiceImpl implements UserRestService{
     }
 
     @Override
-    public BaseResponse getPegawai(String username) {
+    public Mono<BaseResponse> getPegawai(String username) {
         return this.webClient.get().uri(uriBuilder -> uriBuilder.path("/api/v1/pegawai/{username}")
                 .build(username)).
                 retrieve().
-                bodyToMono(BaseResponse.class).
-                block();
+                bodyToMono(BaseResponse.class);
     }
 
     @Override
