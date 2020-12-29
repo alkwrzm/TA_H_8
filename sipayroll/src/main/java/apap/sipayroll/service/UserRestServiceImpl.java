@@ -1,6 +1,8 @@
 package apap.sipayroll.service;
 
+import apap.sipayroll.model.RoleModel;
 import apap.sipayroll.model.UserModel;
+import apap.sipayroll.respository.RoleDb;
 import apap.sipayroll.respository.UserDb;
 import apap.sipayroll.rest.BaseResponse;
 import apap.sipayroll.rest.Setting;
@@ -10,17 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
 
 
 @Service
@@ -31,6 +31,12 @@ public class UserRestServiceImpl implements UserRestService{
     @Autowired
     private UserDb user;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleDb roleDb;
+
     public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(Setting.userUrl).build(); }
 
@@ -38,8 +44,37 @@ public class UserRestServiceImpl implements UserRestService{
 
     @Override
     public UserModel createUser(UserModel userModel) {
-        return user.save(userModel);
+
+        UserModel newuser = new UserModel();
+        newuser.setUsername(userModel.getUsername());
+        newuser.setPassword(userService.encrypt(userModel.getPassword()));
+        RoleModel targetRole = roleDb.findById(userModel.getRoleModel().getId()).get();
+        newuser.setRoleModel(targetRole);
+        return user.save(newuser);
     }
+    @Override
+    public BaseResponse postPegawai(UserDetail pegawai) {
+
+        System.out.println(pegawai.getIdRole());
+        System.out.println(pegawai.getUsername());
+        System.out.println(pegawai.getTempatLahir());
+        System.out.println(pegawai.getTanggalLahir());
+        System.out.println(pegawai.getNoTelepon());
+        System.out.println(pegawai.getNama());
+        System.out.println(pegawai.getIdPegawai());
+        System.out.println(pegawai.getAlamat());
+        {
+            return this.webClient
+                    .post()
+                    .uri("api/v1/pegawai")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(pegawai)
+                    .retrieve()
+                    .bodyToMono(BaseResponse.class)
+                    .block();
+        }
+    }
+
     @Override
     public UserModel findUserByUsername(String username) {
         return user.findByUsername(username);
@@ -52,25 +87,11 @@ public class UserRestServiceImpl implements UserRestService{
 
     @Override
     public BaseResponse getPegawai(String username) {
-        return this.webClient.get().uri(uriBuilder -> uriBuilder.path("/api/v1/pegawai/{username}" )
+        return this.webClient.get().uri(uriBuilder -> uriBuilder.path("/api/v1/pegawai/{username}")
                 .build(username)).
                 retrieve().
                 bodyToMono(BaseResponse.class).
                 block();
-    }
-
-    @Override
-    public BaseResponse postPegawai(UserDetail pegawai) {
-        {
-            return this.webClient
-                    .post()
-                    .uri("/api/v1/pegawai")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(pegawai)
-                    .retrieve()
-                    .bodyToMono(BaseResponse.class)
-                    .block();
-        }
     }
 
     @Override
