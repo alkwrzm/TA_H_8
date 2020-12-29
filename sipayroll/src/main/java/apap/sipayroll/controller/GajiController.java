@@ -189,6 +189,7 @@ public class GajiController {
         return "delete-gaji";
         // Jangan lupa delete bonus dan lembur
     }
+
     @GetMapping("gaji/viewall")
     public String viewallgaji(
             Model model){
