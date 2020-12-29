@@ -37,39 +37,10 @@ public class UserController {
 
     @GetMapping(value = "/addUser")
     private String addUserSubmit(Model model){
-        model.addAttribute("user", new UserModel());
-        model.addAttribute("listRole", roleService.findAll());
-
-        return "add-user";
-    }
-    @PostMapping(value = "/addUser")
-    private String postUserSubmit(@ModelAttribute UserModel user){
-        /*
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-        System.out.println(user.getRoleModel().getId());
-        */
-        userService.addUser(user);
-
-        return "redirect:/";
-
-    }
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    private String userProfile(Authentication auth, Model model){
-
-        String username = auth.getName();
-        BaseResponse baseResponse = userRestService.getPegawai(username);
-        UserDetail user =baseResponse.getResult();
-        model.addAttribute("user", user);
-        return "user";
-
-    }
-    @GetMapping(value = "/add/pegawai")
-    private String addPegawaiForm(Model model){
         model.addAttribute("listRole", roleService.findAll());
         return "web-add-user";
     }
-    @PostMapping(value = "/add/pegawai")
+    @PostMapping(value = "/addUser")
     public String addPegawaiSubmit(
             @RequestParam("nama") String nama,
             @RequestParam("username") String username,
@@ -82,38 +53,38 @@ public class UserController {
             Model model
     )  {
 
-            UserModel user = new UserModel();
-            RoleModel role = roleService.findById(idRole);
-            user.setUsername(username);
-            user.setRoleModel(role);
-            user.setPassword(password);
-            userService.addUser(user);
+        UserModel user = new UserModel();
+        RoleModel role = roleService.findById(idRole);
+        user.setUsername(username);
+        user.setRoleModel(role);
+        user.setPassword(password);
+        userService.addUser(user);
 
-/*
-            System.out.println("nama"+nama);
-            System.out.println("username"+username);
-            System.out.println("idRole"+idRole);
-            System.out.println("noTelepon"+noTelepon);
-            System.out.println("tanggalLahir"+tanggalLahir);
-            System.out.println("tempatLahir"+tempatLahir);
-            System.out.println("alamat"+ alamat);*/
+        UserDetail pegawai = new UserDetail();
+        pegawai.setNama(nama);
+        pegawai.setUsername(username);
+        pegawai.setIdRole(idRole);
+        pegawai.setNoTelepon(noTelepon);
+        pegawai.setTanggalLahir(tanggalLahir);
+        pegawai.setTempatLahir(tempatLahir);
+        pegawai.setAlamat(alamat);
 
-            UserDetail pegawai = new UserDetail();
-            pegawai.setNama(nama);
-            pegawai.setUsername(username);
-            pegawai.setIdRole(idRole);
-            pegawai.setNoTelepon(noTelepon);
-            pegawai.setTanggalLahir(tanggalLahir);
-            pegawai.setTempatLahir(tempatLahir);
-            pegawai.setAlamat(alamat);
+        userRestService.postPegawai(pegawai);
 
-            //System.out.println(formatter5 + "asd");
-            userRestService.postPegawai(pegawai);
-
-            String notif = "Pengguna dengan nama " + pegawai.getNama() + " berhasil ditambahkan!";
-            //System.out.println("berhasil");
-            model.addAttribute("notif", notif);
+        String notif = "Pengguna dengan nama " + pegawai.getNama() + " berhasil ditambahkan!";
+        model.addAttribute("notif", notif);
 
         return "redirect:/";
     }
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    private String userProfile(Authentication auth, Model model){
+
+        String username = auth.getName();
+        BaseResponse baseResponse = userRestService.getPegawai(username);
+        UserDetail user =baseResponse.getResult();
+        model.addAttribute("user", user);
+        return "user";
+
+    }
+
 }
