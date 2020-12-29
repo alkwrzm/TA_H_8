@@ -58,8 +58,8 @@ public class UserController {
     private String userProfile(Authentication auth, Model model){
 
         String username = auth.getName();
-        BaseResponse<LinkedHashMap> baseResponse = userRestService.getPegawai(username);
-        LinkedHashMap user =baseResponse.getResult();
+        BaseResponse baseResponse = userRestService.getPegawai(username);
+        UserDetail user =baseResponse.getResult();
         model.addAttribute("user", user);
         return "user";
 
@@ -80,9 +80,8 @@ public class UserController {
             @RequestParam("tanggalLahir") String tanggalLahir,
             @RequestParam("alamat") String alamat,
             Model model
-    ) throws ParseException {
+    )  {
 
-        if(userService.findByUsername(username) == null){
             UserModel user = new UserModel();
             RoleModel role = roleService.findById(idRole);
             user.setUsername(username);
@@ -90,11 +89,14 @@ public class UserController {
             user.setPassword(password);
             userService.addUser(user);
 
-
-            //Date date1=new SimpleDateFormat("yyyy-MM-ddTHH:mm").parse(tanggalLahir);
-
-            //Date formatter5=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(tanggalLahir);
-            //Date formatter5=new SimpleDateFormat("yyyy-MM-dd").parse(tanggalLahir);
+/*
+            System.out.println("nama"+nama);
+            System.out.println("username"+username);
+            System.out.println("idRole"+idRole);
+            System.out.println("noTelepon"+noTelepon);
+            System.out.println("tanggalLahir"+tanggalLahir);
+            System.out.println("tempatLahir"+tempatLahir);
+            System.out.println("alamat"+ alamat);*/
 
             UserDetail pegawai = new UserDetail();
             pegawai.setNama(nama);
@@ -111,11 +113,7 @@ public class UserController {
             String notif = "Pengguna dengan nama " + pegawai.getNama() + " berhasil ditambahkan!";
             //System.out.println("berhasil");
             model.addAttribute("notif", notif);
-        } else{
 
-            String notif = "Gunakan username yang lain";
-            model.addAttribute("notif", notif);
-        }
         return "redirect:/";
     }
 }
