@@ -5,6 +5,7 @@ import apap.sipayroll.model.RoleModel;
 import apap.sipayroll.model.UserModel;
 import apap.sipayroll.rest.BaseResponse;
 import apap.sipayroll.rest.UserDetail;
+import apap.sipayroll.rest.UserResponse;
 import apap.sipayroll.service.RoleService;
 import apap.sipayroll.service.UserRestService;
 import apap.sipayroll.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +39,7 @@ public class UserController {
 
     @GetMapping(value = "/addUser")
     private String addUserSubmit(Model model){
+
         model.addAttribute("listRole", roleService.findAll());
         return "web-add-user";
     }
@@ -76,15 +79,14 @@ public class UserController {
 
         return "redirect:/";
     }
+
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     private String userProfile(Authentication auth, Model model){
 
         String username = auth.getName();
-        BaseResponse baseResponse = userRestService.getPegawai(username);
-        UserDetail user =baseResponse.getResult();
-        model.addAttribute("user", user);
+        UserResponse respon = userRestService.getPegawai(username);
+
+        model.addAttribute("user", respon);
         return "user";
-
     }
-
 }

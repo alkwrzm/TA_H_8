@@ -4,6 +4,7 @@ import apap.sipayroll.model.RoleModel;
 import apap.sipayroll.model.UserModel;
 import apap.sipayroll.rest.BaseResponse;
 import apap.sipayroll.rest.UserDetail;
+import apap.sipayroll.rest.UserResponse;
 import apap.sipayroll.service.RoleService;
 import apap.sipayroll.service.UserRestService;
 import apap.sipayroll.service.UserService;
@@ -78,13 +79,13 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/user")
-    private BaseResponse getPegawai(Authentication auth){
+    private UserResponse getPegawai(Authentication auth){
         String username = auth.getName();
         return userRestService.getPegawai(username);
     }
 
     @PostMapping(value = "/add/pegawaii")
-    public BaseResponse addUserSubmit(
+    public UserResponse addUserSubmit(
             @RequestBody UserDetail user){
         System.out.println(user.getIdRole());
         return userRestService.postPegawai(user);
@@ -92,7 +93,7 @@ public class UserRestController {
 
 
     @PostMapping(value = "/add/pegawai")
-    public BaseResponse addUserSubmits(
+    public UserResponse addUserSubmits(
             @RequestParam("nama") String nama,
             @RequestParam("username") String username,
             @RequestParam("password") String password,

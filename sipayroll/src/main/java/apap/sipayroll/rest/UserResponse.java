@@ -3,9 +3,8 @@ package apap.sipayroll.rest;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseResponse<T> {
+public class UserResponse {
     @JsonProperty("status")
     private Integer status;
 
@@ -13,7 +12,7 @@ public class BaseResponse<T> {
     private String message;
 
     @JsonProperty("result")
-    private T result;
+    private UserDetail result;
 
     public Integer getStatus() {
         return status;
@@ -31,11 +30,12 @@ public class BaseResponse<T> {
         this.message = message;
     }
 
-    public T getResult() {
+    public UserDetail getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(UserDetail result) {
         this.result = result;
     }
+
 }
