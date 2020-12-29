@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>View Lembur</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+</head>
+<body>
+<h2>Daftar Lembur</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>No. </th>
+        <th>Nama Pegawai</th>
+        <th>Waktu Mulai</th>
+        <th>Waktu Selesai</th>
+        <th>Kompensasi</th>
+        <th>Status Persetujuan</th>
+        <th>Actions</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+            th:each="lembur, iterationStatus : ${lemburList}"
+            th:style="${iterationStatus.even} ? 'font-weight:bold;'"
+    >
+        <td th:text="${iterationStatus.count}"></td>
+        <td th:text="${lembur.getGajiModel().getUserModel().getUsername()}"></td>
+        <td th:text="${lembur.waktuMulai}"></td>
+        <td th:text="${lembur.waktuSelesai}"></td>
+        <td th:text="${kompensasi.get((iterationStatus.count)-1)}"></td>
+        <td th:text="${lembur.statusPersetujuan}"></td>
+        <td>
+            <a th:href="@{/lembur/change/} + ${lembur.id}">Ubah | </a>
+            <a th:href="@{/lembur/delete/} + ${lembur.id}">Hapus | </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
