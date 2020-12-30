@@ -62,27 +62,42 @@ public class UserController {
 
 
         } else {
-            UserModel user = new UserModel();
-            RoleModel role = roleService.findById(idRole);
-            user.setUsername(username);
-            user.setRoleModel(role);
-            user.setPassword(password);
-            userService.addUser(user);
+            try{
 
-            UserDetail pegawai = new UserDetail();
-            pegawai.setNama(nama);
-            pegawai.setUsername(username);
-            pegawai.setIdRole(idRole);
-            pegawai.setNoTelepon(noTelepon);
-            pegawai.setTanggalLahir(tanggalLahir);
-            pegawai.setTempatLahir(tempatLahir);
-            pegawai.setAlamat(alamat);
+                UserDetail pegawai = new UserDetail();
+                pegawai.setNama(nama);
+                pegawai.setUsername(username);
+                pegawai.setIdRole(idRole);
+                pegawai.setNoTelepon(noTelepon);
+                pegawai.setTanggalLahir(tanggalLahir);
+                pegawai.setTempatLahir(tempatLahir);
+                pegawai.setAlamat(alamat);
 
-            userRestService.postPegawai(pegawai);
+                userRestService.postPegawai(pegawai);
 
-            String notif = pegawai.getNama() + " berhasil ditambahkan!";
-            model.addAttribute("notif", notif);
-            System.out.println(notif);
+                String notif = pegawai.getNama() + " berhasil ditambahkan!";
+                model.addAttribute("notif", notif);
+
+                UserModel user = new UserModel();
+                RoleModel role = roleService.findById(idRole);
+                user.setUsername(username);
+                user.setRoleModel(role);
+                user.setPassword(password);
+                userService.addUser(user);
+
+            }
+            catch(org.springframework.web.reactive.function.client.WebClientResponseException e){
+
+                UserModel user = new UserModel();
+                RoleModel role = roleService.findById(idRole);
+                user.setUsername(username);
+                user.setRoleModel(role);
+                user.setPassword(password);
+                userService.addUser(user);
+
+                String notif = nama + " berhasil ditambahkan di local!";
+                model.addAttribute("notif", notif);
+            }
         }
         return "add-user";
     }
