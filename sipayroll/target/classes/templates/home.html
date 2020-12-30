@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid container h-75" style="margin: auto auto">
+
+    <div class="card align-items-center bg-light d-flex justify-content-center align-center ">
+        <div class="card-body">
+            <p class="card-text">Selamat datang di SIPAYROLL!.</p>
+        </div>
+    </div>
+<br>
+    <div class="btn-group d-flex align-items-center justify-content-around align-center " role="group" aria-label="Basic example">
+        <a th:href="@{/user/}" class="btn btn-dark">User</a>
+    </div>
+    <div class="btn-group d-flex align-items-center justify-content-around align-center " role="group" aria-label="Basic example">
+        <a th:href="@{/gaji/viewall}" class="btn btn-dark">Gaji</a>
+    </div>
+    <div class="btn-group d-flex align-items-center justify-content-around align-center " role="group" aria-label="Basic example">
+        <a th:href="@{/lembur/view}" class="btn btn-dark">Lembur</a>
+    </div>
+
+
+</div>
+</body>
+</html>

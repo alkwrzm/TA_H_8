@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Lembur</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row"><br><br></div>
+        <div class="row">
+            <div class="col align-self-start"></div>
+            <div class="col align-self-center">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Change Lembur</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/lembur/change}" th:object="${lembur}" method="POST">
+                            <input type="hidden" th:field="*{id}"/>
+                            Waktu Mulai:<br>
+                            <input class="form-control" type="datetime-local" name="waktuMulai" th:value="*{waktuMulai}" />
+                            <br><br>
+                            Waktu Selesai:<br>
+                            <input class="form-control" type="datetime-local" name="waktuSelesai" th:value="*{waktuSelesai}" />
+                            <br><<br>
+                            Kompensasi Per Jam:<br>
+                            <input class="form-control" type="text" name="kompensasiPerJam" th:value="*{kompensasiPerJam}" readonly/>
+                            <br><br>
+                            <input type="hidden" th:field="*{statusPersetujuan}"/>
+                            Status Pertujuan:<br>
+                            <input class="form-control" type="text" name="statusPersetujuan" th:value="${status}" disabled/>
+                            <input type="hidden" th:field="*{gajiModel}"/>
+                            <br><br><br>
+                            <button class="btn btn-dark" type="submit" value="Submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col align-self-end"></div>
+        </div>
+    </div>
+</body>
+</html>

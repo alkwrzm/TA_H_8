@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Add Gaji</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Add User</div>
+                <div class="card-body">
+                    <form th:action="@{/user/addUser}" method="POST">
+                        <label>Nama</label>
+                        <input type="text" name="nama" class="form-control" />
+                        <label>username</label>
+                        <input type="text" name="username" class="form-control"/>
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control">
+                        <label>Role</label>
+                        <select name="idRole" class="form-control">
+                            <option selected value=""> -- Pilih Role -- </option>
+                            <option th:each="role : ${listRole}" th:value="${role.id}" th:text="${role.namaRole}"></option>
+                        </select>
+                        <label>noTelepon</label>
+                        <input type="text" name="noTelepon" class="form-control"/>
+                        <label>tempatLahir</label>
+                        <input type="text" name="tempatLahir" class="form-control"/>
+                        <label>tanggalLahir</label>
+                        <input type="datetime-local" name="tanggalLahir" class="form-control"/>
+                        <label>alamat</label>
+                        <input type="text" name="alamat" class="form-control"/>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
