@@ -22,7 +22,6 @@ public class DetailGajiRestServiceImpl implements DetailGajiRestService{
 
     @Override
     public Mono<BaseResponse> getPelatihan(String username) {
-        return this.webClient.get().uri(username).retrieve().bodyToMono(BaseResponse
-        .class);
+        return this.webClient.get().uri(username).retrieve().bodyToMono(BaseResponse.class);
     }
 }

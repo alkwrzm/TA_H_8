@@ -12,7 +12,7 @@ public class BaseResponse<T> {
     @JsonProperty("message")
     private String message;
 
-    @JsonProperty("result")
+    @JsonProperty("resultPesertaPelatihan")
     private T result;
 
     public Integer getStatus() {
