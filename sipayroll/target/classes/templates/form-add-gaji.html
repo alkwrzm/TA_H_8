@@ -22,7 +22,7 @@
                 <label >UUID User</label>
                     <select class="form-control" th:field="*{userModel.uuid}">
                         <option value="" hidden selected>pilih user</option>
-                        <option th:each="user : ${listUser}" th:text="${user.uuid}" th:value="${user.uuid}" ></option>
+                        <option th:each="user : ${listUser}" th:text="${user.username}" th:value="${user.uuid}" ></option>
                     </select>
             <br>
                 <label >Gaji Pokok</label>

@@ -5,8 +5,22 @@
     <title>Error Update Gaji</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
 </head>
 <body>
-ups tidak bisa
+<div class="container-fluid">
+    <div class="row"><br><br></div>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3>Error Notification</h3>
+            </div>
+            <div class="card-body">
+                <h2>Anda Tidak Bisa Mengubah Gaji Anda Sendiri</h2>
+                <button class="btn btn-dark" th:href="@{/}">Home</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

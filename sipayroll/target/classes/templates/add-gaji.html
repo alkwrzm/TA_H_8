@@ -5,10 +5,22 @@
     <title>Add Gaji</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
 </head>
 <body>
-    <nav th:replace="fragments/fragment :: navbar"></nav>
-    <h3 th:text="'Gaji dengan nomor gaji ' + ${gaji} + ' berhasil ditambahkan. '"></h3>
-    <a th:href="@{/}" class="btn btn-dark">Home</a>
+<div class="container-fluid">
+    <div class="row"><br><br></div>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3>Gaji Notification</h3>
+            </div>
+            <div class="card-body">
+                <h2 th:text="'Gaji dengan nomor gaji ' + ${gaji} + ' berhasil ditambahkan. '"></h2>
+                <button class="btn btn-dark" th:href="@{/}">Home</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
