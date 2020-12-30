@@ -101,7 +101,7 @@ public class UserRestServiceImpl implements UserRestService{
 
                 //System.out.println(period.getYears() + "disini");
                 //System.out.println();
-                if (period.getYears() >= 2) {
+                if (period.getYears() > 2) {
                     result.add(a);}
             }
         }
