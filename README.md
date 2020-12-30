@@ -30,4 +30,4 @@ Kontrak Tahap 3 Tugas Akhir:
 |1806146991|Harnindyto Wicaksana|17,18|
 |1806185462|Amilah Zahiroh|14|
 
-Berikut url website SI-PAYROLL H8 [Link](https://sipayroll-h8.herokuapp.com/)
+Website dapat diakses pada [SI-PAYROLL H8](https://sipayroll-h8.herokuapp.com/)
