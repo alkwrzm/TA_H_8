@@ -64,14 +64,15 @@ public class GajiController {
 
         BaseResponse fix = respon.block();
 
+        System.out.println(fix.getMessage() + fix.getResult() + fix.getStatus());
+
         List<LinkedHashMap<String,String>> listPelatihan = (List<LinkedHashMap<String,String>>) fix.getResult();
+
 
         Boolean notes = true;
 
-        if(listPelatihan == null){
+        if(listPelatihan.size()<=0){
             notes = false;
-        }else {
-            notes = true;
         }
 
         Integer jumlahnya = 0;
