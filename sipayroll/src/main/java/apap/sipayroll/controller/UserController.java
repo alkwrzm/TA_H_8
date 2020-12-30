@@ -80,7 +80,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     private String userProfile(Authentication auth, Model model){
 
         String username = auth.getName();
