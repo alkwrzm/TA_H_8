@@ -4,12 +4,21 @@
     <title>View Lembur</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    <nav th:replace="fragments/fragment :: navbar"></nav>
+
 </head>
 <body>
-<h2>Daftar Lembur</h2>
-<table class="table">
-    <thead>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<section>
+    <div class="container-fluid">
+        <h2 align="center" style="margin-top: 5%;">Daftar Gaji</h2>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table">
+                <thead class="text-light bg-dark">
     <tr>
         <th>No. </th>
         <th>Nama Pegawai</th>
@@ -39,5 +48,8 @@
     </tr>
     </tbody>
 </table>
+        </div>
+    </div>
+</section>
 </body>
 </html>

@@ -8,10 +8,17 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<h2>User</h2>
-<div>
+<section>
+    <div class="container-fluid">
+        <h2 align="center" style="margin-top: 5%;">User</h2>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
     <table clas="table">
-        <thead>
+        <thead class="text-light bg-dark">
         <tr>
             <th>Id Pegawai</th>
             <th>Nama</th>
@@ -38,6 +45,8 @@
         </tbody>
     </table>
     <a th:href="@{/}" class="btn btn-dark">Home</a>
-</div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
