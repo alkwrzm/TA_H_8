@@ -12,7 +12,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import apap.sipayroll.model.GajiModel;
+import org.hibernate.annotations.Type;
 
+@Lob
+@Type(type = "org.hibernate.type.TextType")
 @Entity
 @Table(name = "pengguna")
 public class UserModel implements Serializable {
