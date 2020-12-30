@@ -56,14 +56,6 @@ public class UserRestServiceImpl implements UserRestService{
     @Override
     public UserResponse postPegawai(UserDetail pegawai) {
 
-        System.out.println(pegawai.getIdRole());
-        System.out.println(pegawai.getUsername());
-        System.out.println(pegawai.getTempatLahir());
-        System.out.println(pegawai.getTanggalLahir());
-        System.out.println(pegawai.getNoTelepon());
-        System.out.println(pegawai.getNama());
-        System.out.println(pegawai.getIdPegawai());
-        System.out.println(pegawai.getAlamat());
 
         return this.webClient
                 .post()
@@ -107,8 +99,8 @@ public class UserRestServiceImpl implements UserRestService{
                 LocalDate tanggalMasukFormat = tanggalMasuk.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 Period period = Period.between(tanggalMasukFormat, curr);
 
-                System.out.println(period.getYears() + "disini");
-                System.out.println();
+                //System.out.println(period.getYears() + "disini");
+                //System.out.println();
                 if (period.getYears() >= 2) {
                     result.add(a);}
             }
@@ -129,6 +121,6 @@ public class UserRestServiceImpl implements UserRestService{
         Period period = Period.between(tanggalMasukFormat, curr);
         Integer periode = (period.getYears());
         user.setLamaBerkerja(periode);
-        System.out.print("masukga" + periode);
+        //System.out.print("masukga" + periode);
     }
 }

@@ -85,8 +85,10 @@ public class UserController {
 
         String username = auth.getName();
         UserResponse respon = userRestService.getPegawai(username);
-
-        model.addAttribute("user", respon);
+        UserModel usermodel = userService.findByUsername(username);
+        UserDetail user =respon.getResult();
+        model.addAttribute("user", user);
+        model.addAttribute("userModel", usermodel);
         return "user";
     }
 }
