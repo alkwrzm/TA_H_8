@@ -104,12 +104,13 @@ public class UserRestController {
             @RequestParam("alamat") String alamat,
             Model model
     ) {
-//        if(userService.findByUsername(username) != null){
-//            String notif = "Gunakan username yang lain";
-//            model.addAttribute("notif", notif);
-//
-//
-//        } else{
+        if(userService.findByUsername(username) != null){
+            String notif = "Username sudah ada";
+            model.addAttribute("notif", notif);
+            return null;
+
+
+        } else{
             UserModel user = new UserModel();
             RoleModel role = roleService.findById(idRole);
             user.setUsername(username);
@@ -124,9 +125,9 @@ public class UserRestController {
             pegawai.setTanggalLahir(tanggalLahir);
             pegawai.setTempatLahir(tempatLahir);
             pegawai.setAlamat(alamat);
+            return userRestService.postPegawai(pegawai);
 
-       // }
-        return userRestService.postPegawai(pegawai);
+        }
     }
 
 

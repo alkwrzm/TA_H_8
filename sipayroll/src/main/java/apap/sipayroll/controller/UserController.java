@@ -55,28 +55,34 @@ public class UserController {
             @RequestParam("alamat") String alamat,
             Model model
     )  {
+        if(userService.findByUsername(username) != null){
+            String notif = "Username sudah ada";
+            model.addAttribute("notif", notif);
+            return null;
 
-        UserModel user = new UserModel();
-        RoleModel role = roleService.findById(idRole);
-        user.setUsername(username);
-        user.setRoleModel(role);
-        user.setPassword(password);
-        userService.addUser(user);
 
-        UserDetail pegawai = new UserDetail();
-        pegawai.setNama(nama);
-        pegawai.setUsername(username);
-        pegawai.setIdRole(idRole);
-        pegawai.setNoTelepon(noTelepon);
-        pegawai.setTanggalLahir(tanggalLahir);
-        pegawai.setTempatLahir(tempatLahir);
-        pegawai.setAlamat(alamat);
+        } else {
+            UserModel user = new UserModel();
+            RoleModel role = roleService.findById(idRole);
+            user.setUsername(username);
+            user.setRoleModel(role);
+            user.setPassword(password);
+            userService.addUser(user);
 
-        userRestService.postPegawai(pegawai);
+            UserDetail pegawai = new UserDetail();
+            pegawai.setNama(nama);
+            pegawai.setUsername(username);
+            pegawai.setIdRole(idRole);
+            pegawai.setNoTelepon(noTelepon);
+            pegawai.setTanggalLahir(tanggalLahir);
+            pegawai.setTempatLahir(tempatLahir);
+            pegawai.setAlamat(alamat);
 
-        String notif = "Pengguna dengan nama " + pegawai.getNama() + " berhasil ditambahkan!";
-        model.addAttribute("notif", notif);
+            userRestService.postPegawai(pegawai);
 
+            String notif = pegawai.getNama() + " berhasil ditambahkan!";
+            model.addAttribute("notif", notif);
+        }
         return "redirect:/";
     }
 
@@ -84,11 +90,18 @@ public class UserController {
     private String userProfile(Authentication auth, Model model){
 
         String username = auth.getName();
-        UserResponse respon = userRestService.getPegawai(username);
-        UserModel userModel = userService.findByUsername(username);
-        UserDetail user =respon.getResult();
-        model.addAttribute("user", user);
-        model.addAttribute("userModel", userModel);
+        try{
+            UserResponse respon = userRestService.getPegawai(username);
+            UserDetail user =respon.getResult();
+            model.addAttribute("user", user);
+
+        }catch (org.springframework.web.reactive.function.client.WebClientResponseException e){
+            return "user-404";
+        }finally{
+
+            UserModel userModel = userService.findByUsername(username);
+            model.addAttribute("userModel", userModel);
+        }
         return "user";
     }
 }
