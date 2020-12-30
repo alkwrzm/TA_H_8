@@ -21,3 +21,13 @@ Kontrak Tahap 2 Tugas Akhir:
 |1806185405|Mohammed Al Kwarizmi|7|
 |1806146991|Harnindyto Wicaksana|8|
 |1806185462|Amilah Zahiroh|9|
+
+Kontrak Tahap 3 Tugas Akhir:
+|NPM|Nama|Fitur Yang Diselesaikan|
+|---|---|---|
+|1806185361|Jacob Marulitua Ido Situmorang|15|
+|1806185405|Mohammed Al Kwarizmi|16|
+|1806146991|Harnindyto Wicaksana|17,18|
+|1806185462|Amilah Zahiroh|14|
+
+Berikut url website SI-PAYROLL H8 **`https://sipayroll-h8.herokuapp.com/`**
