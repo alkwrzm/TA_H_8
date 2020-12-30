@@ -17,11 +17,11 @@ public class DetailGajiRestServiceImpl implements DetailGajiRestService{
     private DetailGajiRestService detailGajiRestService;
 
     public DetailGajiRestServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl("http://si-pelatihan-h7.herokuapp.com/api/v1/peserta-pelatihan").build();
+        this.webClient = webClientBuilder.baseUrl("http://si-pelatihan-h7.herokuapp.com").build();
     }
 
     @Override
     public Mono<BaseResponse> getPelatihan(String username) {
-        return this.webClient.get().uri(username).retrieve().bodyToMono(BaseResponse.class);
+        return this.webClient.get().uri("/api/v1/peserta-pelatihan" + username).retrieve().bodyToMono(BaseResponse.class);
     }
 }
