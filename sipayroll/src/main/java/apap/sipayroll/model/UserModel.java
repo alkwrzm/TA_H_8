@@ -15,7 +15,7 @@ import apap.sipayroll.model.GajiModel;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "user")
+@Table(name = "pengguna")
 public class UserModel implements Serializable {
     @Id
     @Size(max=200)
