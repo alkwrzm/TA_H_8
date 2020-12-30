@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Home</title>
@@ -22,7 +22,7 @@
     <div class="btn-group d-flex align-items-center justify-content-around align-center " role="group" aria-label="Basic example">
         <a th:href="@{/gaji/viewall}" class="btn btn-dark">Gaji</a>
     </div>
-    <div class="btn-group d-flex align-items-center justify-content-around align-center " role="group" aria-label="Basic example">
+    <div sec:authorize="hasAnyAuthority('Kepala Departemen HR', 'Staff Payroll' , 'Karyawan')" class="btn-group d-flex align-items-center justify-content-around align-center " role="group" aria-label="Basic example">
         <a th:href="@{/lembur/view}" class="btn btn-dark">Lembur</a>
     </div>
 
