@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import apap.sipayroll.model.GajiModel;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "user")
@@ -29,6 +30,7 @@ public class UserModel implements Serializable {
 
     @NotNull
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Size(max = 200)
     @Column(name = "password", nullable = false)
     private String password;
