@@ -14,6 +14,7 @@
         <div class="card">
             <div class="card-header text-light bg-dark">Profile User</div>
             <div class="card-body">
+                <p th:text="'Uuid: ' + ${userModel.getUuid()}"></p>
                 <p th:text="'Username: ' + ${userModel.getUsername()}"></p>
                 <p th:text="'Role: ' + ${userModel.roleModel.namaRole}"></p>
             </div>
