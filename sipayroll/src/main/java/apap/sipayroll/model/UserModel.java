@@ -14,7 +14,7 @@ import java.util.List;
 import apap.sipayroll.model.GajiModel;
 
 @Entity
-@Table(name = "user")
+@Table(name = "pengguna")
 public class UserModel implements Serializable {
     @Id
     @Size(max=200)
