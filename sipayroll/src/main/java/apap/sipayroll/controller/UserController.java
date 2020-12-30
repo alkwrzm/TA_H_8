@@ -58,7 +58,6 @@ public class UserController {
         if(userService.findByUsername(username) != null){
             String notif = "Username sudah ada";
             model.addAttribute("notif", notif);
-            return null;
 
 
         } else {
