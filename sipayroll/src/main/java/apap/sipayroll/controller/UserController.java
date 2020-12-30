@@ -84,7 +84,7 @@ public class UserController {
             model.addAttribute("notif", notif);
             System.out.println(notif);
         }
-        return "redirect:/";
+        return "add-user";
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
