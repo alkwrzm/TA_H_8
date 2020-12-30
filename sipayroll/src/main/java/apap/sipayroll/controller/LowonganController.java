@@ -39,16 +39,11 @@ public class LowonganController {
         MultiValueMap<String, String> dataform = new LinkedMultiValueMap<>();
         UserModel userLowongan = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         lowongan.setUsername(userLowongan.getUsername());
-//        dataform.add("divisi", lowongan.getDivisi());
-//        dataform.add("posisi", lowongan.getPosisi());
-//        dataform.add("jumlah", lowongan.getJumlah().toString());
-//        dataform.add("username", userLowongan.getUsername());
-//        dataform.add("jenisLowongan", lowongan.getJenisLowongan().toString());
         if(lowongan.getDivisi() != null && lowongan.getJenisLowongan() != null && lowongan.getJumlah() != null && lowongan.getPosisi() != null){
             lowonganRestService.requestLowongan(lowongan);
-            redir.addFlashAttribute("berhasil", "Penambahan lowongan berhasil!");
+            redir.addFlashAttribute("notes", "Penambahan lowongan berhasil!");
         }else{
-            redir.addFlashAttribute("gagal", "Penambahan lowongan gagal!");
+            redir.addFlashAttribute("notes", "Penambahan lowongan gagal!");
         }
         System.out.println(dataform);
         System.out.println(userLowongan);
