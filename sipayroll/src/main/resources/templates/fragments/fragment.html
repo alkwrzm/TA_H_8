@@ -30,8 +30,8 @@
                 <a class="dropdown-toggle text-light"  data-toggle="dropdown" href="#">User
                     <span class="sr-only text-light"></span></a>
                 <ul class="dropdown-menu bg-dark">
-                    <li><a th:href="@{/user/addUser}" class="bg-dark text-light">Add User<span class="sr-only"></span></a></li>
-                    <li><a th:href="@{/user/changePassword} "class="bg-dark text-light">Change Password<span class="sr-only"></span></a></li>
+                    <li><a sec:authorize="hasAnyAuthority('Kepala Departemen HR')" th:href="@{/user/addUser}" class="bg-dark text-light">Add User<span class="sr-only"></span></a></li>
+                    <li><a th:href="@{/user}" class="bg-dark text-light">View Profile<span class="sr-only"></span></a></li>
                     <li><a th:href="@{/logout}" class="bg-dark text-light">LogOut<span class="sr-only"></span></a></li>
                 </ul>
             </li>
@@ -40,8 +40,7 @@
                     <span class="sr-only text-light"></span></a>
                 <ul class="dropdown-menu bg-dark">
                     <li><a th:href="@{/gaji/viewall}"class="bg-dark text-light">ViewAll Gaji<span class="sr-only"></span></a></li>
-                    <li><a th:href="@{/gaji/add}" class="bg-dark text-light">Add Gaji<span class="sr-only"></span></a></li>
-                    <li><a th:href="@{/bonus}" class="bg-dark text-light">Add Bonus<span class="sr-only"></span></a></li>
+                    <li><a sec:authorize="hasAnyAuthority('Kepala Bagian Pelatihan' ,'Kepala Departemen HR')" th:href="@{/bonus}" class="bg-dark text-light">Add Bonus<span class="sr-only"></span></a></li>
                     <li><a sec:authorize="hasAnyAuthority('Kepala Departemen HR','Staff Payroll')" th:href="@{/gaji/add}" class="bg-dark text-light">Add Gaji<span class="sr-only"></span></a></li>
                     <li><a sec:authorize="hasAnyAuthority('Kepala Departemen HR')" th:href="@{/gaji/status/viewall}" class="bg-dark text-light">Ubah Status Gaji<span class="sr-only"></span></a></li>
                 </ul>
@@ -50,8 +49,15 @@
                 <a class="dropdown-toggle text-light" data-toggle="dropdown" href="#">Lembur
                     <span class="sr-only text-light"></span></a>
                 <ul class="dropdown-menu bg-dark">
-                    <li><a th:href="@{/lembur/view}" class="bg-dark text-light">ViewAll Lembur<span class="sr-only"></span></a></li>
+                    <li><a sec:authorize="hasAnyAuthority('Kepala Departemen HR', 'Staff Payroll' , 'Karyawan')"  th:href="@{/lembur/view}" class="bg-dark text-light">ViewAll Lembur<span class="sr-only"></span></a></li>
                     <li><a sec:authorize="hasAnyAuthority('Karyawan')" th:href="@{/lembur/add}" class="bg-dark text-light">Add Lembur<span class="sr-only"></span></a></li>
+                </ul>
+            </li>
+            <li sec:authorize="hasAnyAuthority('Staff Payroll')" class="dropdown">
+                <a class="dropdown-toggle text-light" data-toggle="dropdown" href="#">Lowongan
+                    <span class="sr-only text-light"></span></a>
+                <ul class="dropdown-menu bg-dark">
+                    <li><a sec:authorize="hasAnyAuthority('Staff Payroll')" th:href="@{/lowongan/add}" class="bg-dark text-light">Add Lowongan<span class="sr-only"></span></a></li>
                 </ul>
             </li>
         </ul>

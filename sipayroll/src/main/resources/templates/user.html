@@ -8,34 +8,25 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<h2>User</h2>
-<div>
-    <table clas="table">
-        <thead>
-        <tr>
-            <th>Nama</th>
-            <th>Tempat Lahir</th>
-            <th>Tanggal Lahir</th>
-            <th>Nomor Telepon</th>
-            <th>Alamat</th>
-            <th>Id Pegawai</th>
-            <th>Id Role</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${user.nama}"></td>
-            <td th:text="${user.tempatLahir}"></td>
-            <td th:text="${user.tanggalLahir}"></td>
-            <td th:text="${user.noTelepon}"></td>
-            <td th:text="${user.alamat}"></td>
-            <td th:text="${user.idPegawai}"></td>
-            <td th:text="${user.idRole}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/}" class="btn btn-dark">Home</a>
+
+<div class="container-fluid">
+
+    <section>
+        <div class="card">
+            <div class="card-header text-light bg-dark">Profile User</div>
+            <div class="card-body">
+                <p th:text="'Id Pegawai: ' + ${user.idPegawai}"></p>
+                <p th:text="'Nama: ' + ${user.nama}"></p>
+                <p th:text="'Role: ' + ${userModel.roleModel.namaRole}"></p>
+                <p th:text="'Username: ' + ${user.getUsername()}"></p>
+                <p th:text="'Tempat Lahir: ' + ${user.tempatLahir}"></p>
+                <p th:text="'Tanggal Lahir: ' + ${user.tanggalLahir}"></p>
+                <p th:text="'Nomor Telepon: ' + ${user.noTelepon}"></p>
+                <p th:text="'Alamat: ' + ${user.alamat}"></p>
+
+            </div>
+        </div>
+    </section>
 </div>
 </body>
 </html>

@@ -10,7 +10,9 @@
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
+
+            <div class="col align-self-start"></div>
+            <div class="col align-self-center">
             <div class="card">
                 <div class="card-header">Add User</div>
                 <div class="card-body">
@@ -34,12 +36,13 @@
                         <input type="datetime-local" name="tanggalLahir" class="form-control"/>
                         <label>alamat</label>
                         <input type="text" name="alamat" class="form-control"/>
-                        <br>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <br><br>
+                        <button type="submit" class="btn btn-dark">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
+        <div class="col align-self-end"></div>
     </div>
 </div>
 </body>
