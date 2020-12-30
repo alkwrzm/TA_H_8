@@ -169,7 +169,7 @@ public class GajiController {
         return "update-gaji";
     }
 
-    @RequestMapping("gaji/delete/{id}")
+    @PostMapping("gaji/delete/{id}")
     public String deleteGaji(
             @PathVariable Long id,
             Model model){
