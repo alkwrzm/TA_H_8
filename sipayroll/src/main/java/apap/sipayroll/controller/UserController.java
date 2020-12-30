@@ -58,6 +58,7 @@ public class UserController {
         if(userService.findByUsername(username) != null){
             String notif = "Username sudah ada";
             model.addAttribute("notif", notif);
+            System.out.println(notif);
 
 
         } else {
@@ -81,6 +82,7 @@ public class UserController {
 
             String notif = pegawai.getNama() + " berhasil ditambahkan!";
             model.addAttribute("notif", notif);
+            System.out.println(notif);
         }
         return "redirect:/";
     }

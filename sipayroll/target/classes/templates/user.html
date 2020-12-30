@@ -8,44 +8,25 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<section>
-    <div class="container-fluid">
-        <h2 align="center" style="margin-top: 5%;">Profile User</h2>
-    </div>
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-    <table clas="table">
-        <thead class="text-light bg-dark">
-        <tr>
-            <th>Id Pegawai</th>
-            <th>Nama</th>
-            <th>Role</th>
-            <th>Username</th>
-            <th>Tempat Lahir</th>
-            <th>Tanggal Lahir</th>
-            <th>Nomor Telepon</th>
-            <th>Alamat</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${user.idPegawai}"></td>
-            <td th:text="${user.nama}"></td>
-            <td th:text="${userModel.roleModel.namaRole}"></td>
-            <td th:text="${user.getUsername()}"></td>
-            <td th:text="${user.tempatLahir}"></td>
-            <td th:text="${user.tanggalLahir}"></td>
-            <td th:text="${user.noTelepon}"></td>
-            <td th:text="${user.alamat}"></td>
-        </tr>
-        </tbody>
-    </table>
+
+<div class="container-fluid">
+
+    <section>
+        <div class="card">
+            <div class="card-header text-light bg-dark">Profile User</div>
+            <div class="card-body">
+                <p th:text="'Id Pegawai: ' + ${user.idPegawai}"></p>
+                <p th:text="'Nama: ' + ${user.nama}"></p>
+                <p th:text="'Role: ' + ${userModel.roleModel.namaRole}"></p>
+                <p th:text="'Username: ' + ${user.getUsername()}"></p>
+                <p th:text="'Tempat Lahir: ' + ${user.tempatLahir}"></p>
+                <p th:text="'Tanggal Lahir: ' + ${user.tanggalLahir}"></p>
+                <p th:text="'Nomor Telepon: ' + ${user.noTelepon}"></p>
+                <p th:text="'Alamat: ' + ${user.alamat}"></p>
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 </body>
 </html>
