@@ -18,7 +18,7 @@
                     <h3>Add Lowongan</h3>
                 </div>
                 <div class="card-body">
-    <form th:action="@{/lowingan/add}"th:object="${lowongan}" method = "POST">
+    <form th:action="@{/lowongan/add}"th:object="${lowongan}" method = "POST">
             <label >Divisi</label>
                 <input type="text" class="form-control" name="divisi">
             <label >Posisi</label>
@@ -35,6 +35,7 @@
                     <option value="4">Freelance</option>
                 </select>
         <br><br>
+        <p th:text="${notes}"></p>
                 <button class="btn btn-dark" type="submit">Simpan</button>
 
     </form>
