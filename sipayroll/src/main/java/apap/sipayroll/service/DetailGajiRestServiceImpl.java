@@ -17,12 +17,12 @@ public class DetailGajiRestServiceImpl implements DetailGajiRestService{
     private DetailGajiRestService detailGajiRestService;
 
     public DetailGajiRestServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl("https://4a83a98a-8cec-46f5-aa5c-e38965f3efcd.mock.pstmn.io").build();
+        this.webClient = webClientBuilder.baseUrl("http://si-pelatihan-h7.herokuapp.com/api/v1/peserta-pelatihan").build();
     }
 
     @Override
     public Mono<BaseResponse> getPelatihan(String username) {
-        return this.webClient.get().uri("/rest/si-pelatihan/peserta/" + username).retrieve().bodyToMono(BaseResponse
+        return this.webClient.get().uri(username).retrieve().bodyToMono(BaseResponse
         .class);
     }
 }
